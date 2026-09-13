@@ -1,0 +1,639 @@
+/* ==========================================================
+   MAKEOVER LAYER — drawing-office styling
+   Loaded after style.css and overrides it. To revert the whole
+   makeover, remove the <link> to this file from each page.
+
+   Visual language borrowed from engineering drawings: grid paper,
+   numbered sheets, figure labels, crop marks. The accent is QMFS
+   team orange, used only for numbers, marks, active and hover
+   states — never for large fills.
+   ========================================================== */
+
+:root {
+  --accent: #f26b1d;          /* fills, rules, marks; text on navy        */
+  --accent-ink: #b8490a;      /* orange TEXT on white/paper (AA 5.3:1)    */
+  --accent-wash: #fff3ea;
+  --paper: #f7f8fa;
+  --rule: #d5dbe3;
+  --tick: #aab4c1;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --grid-minor: rgba(10, 22, 40, 0.045);
+  --grid-major: rgba(10, 22, 40, 0.085);
+  --blueprint-minor: rgba(255, 255, 255, 0.045);
+  --blueprint-major: rgba(255, 255, 255, 0.09);
+}
+
+::selection {
+  background: var(--accent-wash);
+  color: var(--navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------- navbar */
+
+.navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+
+/* small orange square: the only logo mark on the site */
+.nav-brand::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* ---------------------------------------------------------- buttons */
+
+.button {
+  border-radius: 2px;
+  letter-spacing: 0.01em;
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.button:hover {
+  background: var(--accent);
+  color: var(--navy);
+}
+
+.button.ghost {
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+.button.ghost:hover {
+  background: #ffffff;
+  color: var(--navy);
+  box-shadow: inset 0 0 0 1px var(--navy);
+}
+
+/* ---------------------------------------------------------- home: blueprint hero */
+
+.hero {
+  position: relative;
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(var(--blueprint-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-major) 1px, transparent 1px),
+    linear-gradient(var(--blueprint-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  padding: 128px 0 112px;
+  overflow: hidden;
+}
+
+/* fade the grid out towards the bottom so it does not end on a hard edge */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 96px;
+  background: linear-gradient(transparent, var(--navy));
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* the existing subtitle becomes a monospace kicker above the name */
+.hero .subtitle {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.hero .subtitle::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+}
+
+.hero .button {
+  background: var(--accent);
+  color: var(--navy);
+}
+
+.hero .button:hover {
+  background: #ffffff;
+  color: var(--navy);
+}
+
+.hero .button.ghost {
+  background: transparent;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.hero .button.ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px #ffffff;
+}
+
+/* A page with nothing between the hero and the footer (the home page, 404):
+   the hero fills the screen instead of leaving an empty white band. */
+.hero:has(+ .footer) {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+/* breathing room between the dark hero and the first text section */
+.hero + main {
+  padding-top: 72px;
+}
+
+/* ---------------------------------------------------------- grid-paper header bands */
+
+/* Projects index: header is a direct child of <body>, so it spans already */
+body > .page-header {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 48px;
+}
+
+/* Project and category pages: the header sits inside <main>, so the band is
+   drawn full-bleed behind it and pulled up to include the back-link. */
+main > .project-header,
+main > .page-header {
+  position: relative;
+  isolation: isolate;
+  padding-top: 32px;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+main > .project-header::before,
+main > .page-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -64px;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* the full-bleed band must not cause a horizontal scrollbar */
+body {
+  overflow-x: clip;
+}
+
+.back-link {
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-header h1,
+.page-header h1 {
+  font-size: clamp(1.6rem, 4.6vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.project-header .tagline,
+.page-header p {
+  font-size: 1.1875rem;
+  max-width: 62ch;
+  margin-top: 12px;
+}
+
+/* ---------------------------------------------------------- on this page: drawing index */
+
+.toc {
+  counter-reset: toc;
+  gap: 8px;
+  margin: 0 0 48px;
+  padding: 0;
+  border: 0;
+}
+
+.toc-label {
+  flex-basis: 100%;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.toc a {
+  counter-increment: toc;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  font-size: 0.875rem;
+  color: var(--text);
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent-ink);
+}
+
+.toc a:hover {
+  color: var(--navy);
+  border-color: var(--navy);
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------- numbered sections */
+
+main {
+  counter-reset: fig;
+}
+
+.project-body,
+main:has(> .home-section) {
+  counter-reset: sec fig;
+}
+
+.project-body h2,
+.home-section h2 {
+  counter-increment: sec;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.project-body h2::before,
+.home-section h2::before {
+  content: counter(sec, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+  transform: translateY(-3px);
+}
+
+/* an orange segment over the grey rule, like a dimension tick */
+.project-body h2::after,
+.home-section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* card titles that sit inside a project body are not section headings */
+.project-body .card-body h2 {
+  counter-increment: none;
+  display: block;
+  font-size: 1.125rem;
+  padding: 0;
+  margin-bottom: 6px;
+  border: 0;
+}
+
+.project-body .card-body h2::before,
+.project-body .card-body h2::after {
+  content: none;
+}
+
+.project-body h3 {
+  letter-spacing: -0.01em;
+}
+
+.project-body section {
+  margin-bottom: 64px;
+}
+
+.project-body ul li::marker,
+.home-section ul li::marker {
+  color: var(--accent);
+}
+
+.project-body a:not(.button):not(.card),
+.home-section a:not(.button) {
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+p.note {
+  border-left: 2px solid var(--rule);
+  padding-left: 12px;
+}
+
+/* ---------------------------------------------------------- figures: crop marks + FIG labels */
+
+figure:has(figcaption) {
+  counter-increment: fig;
+}
+
+figure img,
+figure.render img,
+figure video {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 7px;
+  /* four L-shaped crop marks drawn in the padding, one per corner */
+  background:
+    linear-gradient(var(--tick), var(--tick)) left top / 12px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left top / 1px 12px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right top / 12px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right top / 1px 12px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left bottom / 12px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left bottom / 1px 12px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right bottom / 12px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right bottom / 1px 12px no-repeat,
+    #ffffff;
+  background-origin: padding-box;
+}
+
+figure video {
+  background-color: #000000;
+}
+
+figcaption {
+  margin-top: 10px;
+}
+
+figcaption::before {
+  content: "FIG. " counter(fig, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--accent-ink);
+  margin-right: 10px;
+}
+
+/* ---------------------------------------------------------- iteration list */
+
+.iteration-list {
+  counter-reset: it;
+}
+
+.iteration {
+  counter-increment: it;
+}
+
+.iteration h3::before {
+  content: counter(it, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  margin-right: 10px;
+}
+
+.iteration-metrics {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--paper);
+  border-left: 2px solid var(--rule);
+  padding: 5px 10px;
+}
+
+.iteration.final .iteration-metrics {
+  color: var(--navy);
+  background: var(--accent-wash);
+  border-left-color: var(--accent);
+}
+
+/* ---------------------------------------------------------- cards */
+
+.projects-grid {
+  counter-reset: card;
+}
+
+.card {
+  counter-increment: card;
+  position: relative;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+/* orange bar that draws in from the left on hover */
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #c3ccd7;
+  box-shadow: 0 16px 32px -14px rgba(10, 22, 40, 0.28);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+img.card-image {
+  transition: transform 0.5s ease;
+}
+
+.card:hover img.card-image {
+  transform: scale(1.03);
+}
+
+.card-body::before {
+  content: counter(card, decimal-leading-zero);
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.card-body h2,
+.card-body h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.card-body h2::after,
+.card-body h3::after {
+  content: "\2192";
+  font-weight: 500;
+  color: var(--accent-ink);
+  transition: transform 0.2s ease;
+}
+
+.card:hover .card-body h2::after,
+.card:hover .card-body h3::after {
+  transform: translateX(4px);
+}
+
+/* ---------------------------------------------------------- footer */
+
+.footer {
+  border-top: 2px solid var(--accent);
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(var(--blueprint-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-minor) 1px, transparent 1px);
+  background-size: 24px 24px;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------------------------------------- mobile */
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 80px 0 72px;
+  }
+
+  .hero h1 {
+    margin-bottom: 28px;
+  }
+
+  main > .project-header::before,
+  main > .page-header::before {
+    top: -56px;
+  }
+
+  /* one swipeable row instead of a tall stack of chips */
+  .toc {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 36px;
+    scrollbar-width: thin;
+  }
+
+  .toc-label {
+    display: none;
+  }
+
+  .toc a {
+    flex-shrink: 0;
+  }
+
+  figure img,
+  figure video {
+    padding: 5px;
+  }
+
+  .project-body section {
+    margin-bottom: 48px;
+  }
+}
+
+/* ---------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  img.card-image,
+  .button,
+  .card-body h2::after,
+  .card-body h3::after {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:hover img.card-image,
+  .card:hover .card-body h2::after,
+  .card:hover .card-body h3::after {
+    transform: none;
+  }
+}

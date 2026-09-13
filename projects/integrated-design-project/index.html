@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>Tiltrotor Conversion Wake Study &ndash; Dardi Peka</title>
+  <meta name="description" content="A 2D URANS overset study of wake behaviour and coherent vortex structure through a 45° conversion sweep, based on representative XV-15 nacelle geometry.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tiltrotor Conversion Wake Study – Dardi Peka">
+  <meta property="og:description" content="A 2D URANS overset study of wake behaviour and coherent vortex structure through a 45° conversion sweep, based on representative XV-15 nacelle geometry.">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="stylesheet" href="../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="../../projects.html">&larr; Back to all projects</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Tiltrotor Nacelle Wake During Conversion</h1>
+      <!-- EDIT: one-line subtitle / tagline for this project -->
+      <p class="tagline">A 2D URANS overset study of wake behaviour and coherent vortex structure through a 45&deg; conversion sweep, based on representative XV-15 nacelle geometry.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#overview">Overview</a>
+      <a href="#scope">Scope</a>
+      <a href="#headline-findings">Headline Findings</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#future-work">Future Work</a>
+      <a href="#explore-this-project">Explore This Project</a>
+    </nav>
+
+    <figure>
+      <img width="1147" height="444" src="images/hero.png" alt="Vorticity field behind the tilted nacelle showing a shed vortex street">
+      <figcaption>Vorticity field around the nacelle late in the conversion sweep, showing the separated wake and the shed vortex street decaying downstream.</figcaption>
+    </figure>
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="overview">Overview</h2>
+        <ul>
+          <li>My individual final-year project (EMS690U), supervised by Dr Eldad Avital, as part of a team concept for a modernised urban air mobility (UAM) tiltrotor based on the Bell XV-15.</li>
+          <li>Our group split the tiltrotor into constituent sections, and I decided to work on the conversion mechanics. I investigated the wake aerodynamics during tiltrotor conversion from forward to vertical flight.</li>
+          <li>I modelled the nacelle as a 2D section under a prescribed rigid rotation of 45&deg; at 30&deg;/s, solved with URANS on an overset grid in STAR-CCM+.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="scope">Scope</h2>
+        <p>The brief I started from was a higher-fidelity comparison of tilting-wing against tilting-nacelle conversion, including 3D fluid-structure interaction. I had no HPC access, and my final 2D runs took between 13 and 90 hours each on a local machine. A 3D FSI case could not run within the time frame and equipment constraints of the project.</p>
+        <p>I narrowed the goal of my project early in the timeline. This led me to the next best question I could answer with the available compute power: which wake characteristics can be extracted from a reduced-order model with enough confidence to say something useful about the tilting phase?</p>
+        <p>This was investigated via a full grid convergence study on a stationary baseline, five tilting overset meshes, and frequency analysis across the whole sweep.</p>
+      </section>
+
+      <section>
+        <h2 id="headline-findings">Headline Findings</h2>
+        <ul>
+          <li><strong>Drag rises through the sweep.</strong> This is the clearest integral trend, and it holds across all five meshes, although the magnitudes differ. The aerodynamic drag grows as the conversion proceeds.</li>
+          <li><strong>Lift is far more mesh-sensitive.</strong> The runs agree closely early in the motion and separate later, with a pronounced dip and recovery in C<sub>L</sub> indicating that the flow is reorganising.</li>
+          <li><strong>The nacelle cannot be treated as a quasi-static loading case.</strong> Frequency analysis returned several bands of differing confidence instead of one stationary shedding mode.</li>
+          <li>The late tilting phase is the most aerodynamically sensitive part of the sweep, and the regime to prioritise in any higher-fidelity aeroelastic work.</li>
+        </ul>
+        <div class="figure-grid">
+          <figure>
+            <img loading="lazy" decoding="async" width="1423" height="825" src="images/cd-history.webp" alt="Drag coefficient histories for all five meshes through the tilt sweep">
+            <figcaption>Drag coefficient through the tilting runs. The runs follow each other closely until roughly 27&deg;, then separate as the wake becomes less settled.</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" decoding="async" width="1491" height="862" src="images/cl-history.webp" alt="Lift coefficient histories for all five meshes through the tilt sweep">
+            <figcaption>Lift coefficient through the tilting runs. The early oscillation is shedding at low tilt. The fall near 30&deg; and the spread between meshes afterwards are the mesh sensitivity described above.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="limitations">Limitations</h2>
+        <p>The project's framework was reduced to the following: a simplified 2D section under prescribed rigid rotation, with no wing, no proprotor and no aeroelastic coupling. The no-tilt grid convergence study supports the transient methodology on the fixed-body problem, but it does not prove convergence for the tilting case. The vortex-identification and frequency results should be read comparatively, not as design loads or settled shedding frequencies.</p>
+      </section>
+
+      <section>
+        <h2 id="future-work">Future Work</h2>
+        <ul>
+          <li>Install the wing and proprotor, and move to 3D fluid-structure interaction.</li>
+          <li>Compare tilting-wing against tilting-nacelle conversion in the same reduced-order framework, so the two are directly comparable.</li>
+          <li>Run a mesh triplet for the conversion case, so that an asymptotic range can be established for it.</li>
+          <li>Extend the domain aft to include the empennage. The wake broadens and directly affects the flight dynamics of the aircraft, which this project did not study.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="explore-this-project">Explore This Project</h2>
+        <div class="projects-grid">
+
+          <a class="card" href="design-setup.html">
+            <img loading="lazy" decoding="async" width="1337" height="1001" class="card-image" src="images/meshes.webp" alt="Computational meshes for both cases">
+            <div class="card-body">
+              <h3>Model &amp; Numerical Setup</h3>
+              <p>Geometry, domain, solver choice, meshing strategy and near-wall treatment.</p>
+            </div>
+          </a>
+
+          <a class="card" href="flow-analysis.html">
+            <img loading="lazy" decoding="async" width="1122" height="509" class="card-image" src="images/vorticity-finest.png" alt="Vorticity field on the finest mesh">
+            <div class="card-body">
+              <h3>Wake &amp; Vortex Behaviour</h3>
+              <p>Vortex identification, wake evolution through tilt, and frequency-domain analysis.</p>
+            </div>
+          </a>
+
+          <a class="card" href="results-validation.html">
+            <img loading="lazy" decoding="async" width="1364" height="453" class="card-image" src="images/gci-histories.webp" alt="Grid convergence study solution histories">
+            <div class="card-body">
+              <h3>Validation &amp; Mesh Sensitivity</h3>
+              <p>The grid convergence study, the tilting mesh family, and which results are actually converged.</p>
+            </div>
+          </a>
+
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

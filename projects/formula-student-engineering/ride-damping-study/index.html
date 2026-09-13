@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>IC26 Ride &amp; Damping Study &ndash; Dardi Peka</title>
+  <meta name="description" content="A quarter-car study of ride, grip and damping on the QMFS IC26 Formula Class car.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="IC26 Ride &amp; Damping Study – Dardi Peka">
+  <meta property="og:description" content="A quarter-car study of ride, grip and damping on the QMFS IC26 Formula Class car.">
+  <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/style.css">
+  <link rel="stylesheet" href="../../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="../index.html">&larr; Back to Formula Student projects</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Ride and Damping Study &ndash; IC26</h1>
+      <!-- EDIT: one-line subtitle / tagline for this project -->
+      <p class="tagline">A quarter-car study of ride, grip and damping on the QMFS IC26 Formula Class car.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#project-overview-and-scope">Project Overview and Scope</a>
+      <a href="#model-definition-and-limitations">Model Definition and Limitations</a>
+      <a href="#derivation-and-validation">Derivation and Validation</a>
+      <a href="#finding-1-rough-road-damping">Finding 1: Rough-Road Damping</a>
+      <a href="#finding-2-kerb-response-and-lift-off">Finding 2: Kerb Response and Lift-Off</a>
+      <a href="#effect-of-measured-tyre-stiffness">Effect of Measured Tyre Stiffness</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#future-work">Future Work</a>
+    </nav>
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="project-overview-and-scope">Project Overview and Scope</h2>
+        <p>The QMFS IC26 is a combustion car that weighs 321 kg with the driver, has a 42% front weight distribution, a 1590 mm wheelbase, and 13-inch tyres. The project focused on analysing ride and damping characteristics in a simplified quarter-car model for front and rear corners.</p>
+        <p>A two-degree-of-freedom quarter car was chosen because its natural frequencies have a closed-form solution, so the hand derivation is the verification. Given access to the IC26 vehicle, the model can be validated physically by evaluating the damping spec through suspension tests and comparing it to the simulated results.</p>
+        <p>This project was undertaken to provide a foundational understanding of the ride and damping behaviour of the QMFS IC26, which acts as a starting point for a more comprehensive analysis of vehicle dynamics within the team.</p>
+      </section>
+
+      <section>
+        <h2 id="model-definition-and-limitations">Model Definition and Limitations</h2>
+        <p>A quarter car represents one corner: a sprung mass (vehicle body) on a spring and damper, an unsprung mass (the wheel assembly) beneath it, and the tyre's own vertical stiffness between that and the road. It was modelled in two ways:</p>
+        <ul>
+          <li><strong>Linear:</strong> I derived the equations of motion and solved them in closed form. This is used as the reference for the rest of the analysis.</li>
+          <li><strong>Nonlinear:</strong> I implemented it in Simulink, adding three things a transfer function cannot represent: tyre lift-off, rebound damping at (as a rule of thumb) twice the bump damping, and bump stops.</li>
+        </ul>
+        <figure>
+          <div class="figure-scroll">
+            <img loading="lazy" decoding="async" width="1602" height="1005" src="images/simulink-model.png" alt="Simulink block diagram of the nonlinear quarter-car model">
+          </div>
+          <figcaption>The nonlinear quarter-car model in Simulink. The three effects a transfer function cannot represent are the blocks named liftoff (tyre force cannot go negative), damper (a 1-D lookup giving asymmetric bump and rebound), and stopGap with kStop (bump stops). The outputs bodyAccel and dynTyreLoad are the two cost functions swept in Findings 1 and 2.</figcaption>
+        </figure>
+        <p>Front and rear corners are modelled separately. They are two independent corners, not a coupled car. Sprung corner masses are 49.71 / 72.69 kg front and rear, unsprung 17.70 / 20.40 kg, on wheel rates of 26.8 / 51.4 N/mm from spring rates of 103.0 / 53.5 N/mm.</p>
+        <p>The front is directly actuated with a motion ratio of 0.51, while the rear is a pushrod and bellcrank designed to a target ratio of 1 and measuring 0.98.</p>
+      </section>
+
+      <section>
+        <h2 id="derivation-and-validation">Derivation and Validation</h2>
+        <p>The equations of motion and both natural frequencies were derived on paper before the model was built. The validation chain is as follows:</p>
+        <ul>
+          <li><strong>Verified the natural frequencies by three independent routes:</strong> The roots of the characteristic quartic, the eigenvalues of the state matrix, and the standard separated approximations. The first two agree to around 1&times;10<sup>-14</sup>%. The approximations differ by 0.6% front and 1.3% rear. This is expected as the rear wheel rate is nearly twice the front.</li>
+          <li><strong>The Simulink model falls back onto the hand-checked linear one:</strong> With the nonlinearities switched off, they agree within 0.002%.</li>
+          <li><strong>Bounded the result with the rigid-tyre model frequency, 3.695 / 4.232 Hz:</strong> The limit the body mode approaches if the tyre is treated as infinitely stiff. It is constructed from the wheel rate and sprung mass alone.</li>
+          <li><strong>Nonlinearity changed the result:</strong> Once activated, the nonlinearities shift the optimum damping ratio downwards. The linear model is therefore not reliable for kerb inputs.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="finding-1-rough-road-damping">Finding 1: Rough-Road Damping</h2>
+        <p>Sweeping damping against two costs over a statistical road spectrum: RMS body acceleration (ride, what the driver feels) and RMS dynamic tyre load (grip, how steady the contact patch is):</p>
+        <ul>
+          <li><strong>Front:</strong> ride optimum &zeta; = 0.27, grip optimum &zeta; = 0.41 &ndash; a gap of 0.14.</li>
+          <li><strong>Rear:</strong> ride optimum &zeta; = 0.37, grip optimum &zeta; = 0.35 &ndash; a gap of 0.02.</li>
+        </ul>
+        <p>Both costs rise at both extremes, so each has an interior optimum. Too little damping lets the body mode resonate; too much locks the suspension solid and transmits the road directly into both the body and the contact patch. The trade-off is the gap between the two minima.</p>
+        <p>The two axles conflict in opposite directions and by different amounts. At the rear a single setting is near-optimal for both costs. At the front the two minima are far enough apart to require a choice.</p>
+        <div class="figure-grid">
+          <figure>
+            <img loading="lazy" decoding="async" width="1360" height="928" src="images/dampingSweep_front.png" alt="Front corner ride and grip cost against damping ratio">
+            <figcaption>Front corner, rough road. Each curve is normalised to its own minimum, so both bottom out at exactly 1. Only the position of each minimum is meaningful, never the relative height of the two curves.</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" decoding="async" width="1360" height="927" src="images/dampingSweep_rear.png" alt="Rear corner ride and grip cost against damping ratio">
+            <figcaption>Rear corner, rough road. The two minima nearly coincide. Same normalisation: each curve divided by its own minimum, so heights are not comparable between curves.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="finding-2-kerb-response-and-lift-off">Finding 2: Kerb Response and Lift-Off</h2>
+        <p>The sweep is the same, but the input changes. A single 30 mm kerb at 15 m/s, with the nonlinearities active. The grip optimum moves from 0.41 to 0.300 at the front, and from 0.35 to 0.275 at the rear. The kerb requiring less damping is the opposite of what was expected from the linear analysis.</p>
+        <p>The same kerb run with the nonlinearities switched off gives the opposite result: 0.70 front, 0.475 rear. The shift is therefore caused by the nonlinearities, not by the kerb input. The mechanism is tyre lift-off. Once the tyre spends time off the ground, damping cannot steady a contact patch that is not in contact.</p>
+        <p>To attribute the shift, the kerb was run four times at every damping ratio, each configuration adding one effect: linear, then tyre lift, then damper asymmetry, then bump stops. The change between successive configurations is attributable to the single effect added.</p>
+        <div class="figure-grid">
+          <figure>
+            <img loading="lazy" decoding="async" width="1371" height="943" src="images/dampingSweepNL_front.png" alt="Front corner, nonlinear versus linear damping sweep over a kerb">
+            <figcaption>Front corner over the kerb. Solid lines are the nonlinear model, dashed lines are the same kerb with the nonlinearities switched off. Every curve is normalised to its own minimum, so compare only where each bottoms out.</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" decoding="async" width="1371" height="943" src="images/dampingSweepNL_rear.png" alt="Rear corner, nonlinear versus linear damping sweep over a kerb">
+            <figcaption>Rear corner over the kerb, same comparison and same normalisation. Dashed lines are the identical kerb run with the nonlinearities disabled.</figcaption>
+          </figure>
+        </div>
+
+        <h3>Extent of the Lift-Off Mechanism</h3>
+        <p>Scanned over nine kerbs per axle (20/30/40 mm at 10/15/20 m/s):</p>
+        <ul>
+          <li><strong>Front: 8 of 9 cases sort by airborne time.</strong> Every case requiring less damping is airborne longer than the case that does not. The boundary sits near 2.4% airborne.</li>
+          <li><strong>Rear: 7 of 9 cases sort by airborne time.</strong> One case matches the lift-off mechanism: 20 mm at 20 m/s never leaves the ground and requires more damping. The most airborne rear case does not, returning a tie.</li>
+        </ul>
+        <p>Lift-off is therefore the mechanism at the front, and only part of it at the rear.</p>
+
+        <h3>Kerb Loading at the Grip Optimum</h3>
+        <ul>
+          <li><strong>Airborne:</strong> 4.1% of the time at the front, 2.4% at the rear.</li>
+          <li><strong>Peak tyre load:</strong> 5.17&times; static at the front, 3.80&times; at the rear.</li>
+          <li><strong>Jounce travel used:</strong> 42% front, 36% rear.</li>
+          <li><strong>Time on the bump stops:</strong> 0.0% at both.</li>
+        </ul>
+        <p>Peak tyre load reaches 5.17&times; static at the front. The bump stops do not engage on this kerb; reaching them requires a 65 mm kerb at the front or 77 mm at the rear, at 15 m/s. The loads are peak events during motion, and the results change based on the profile of the kerb.</p>
+      </section>
+
+      <section>
+        <h2 id="effect-of-measured-tyre-stiffness">Effect of Measured Tyre Stiffness</h2>
+        <p>The tyre's vertical stiffness was originally an assumption. It was later found in the tyre test data (provided by Calspan for FSUK purposes) and measured directly, rather than derived from loaded radius. The assumption had been 20% soft, so every study was re-run from the measured baseline, which remains confidential.</p>
+        <p>The key findings of the study remained, while two secondary conclusions did not hold:</p>
+        <ul>
+          <li>"Lift-off sorts the kerb cases at both axles." &rarr; It sorts the front cases but not the rear.</li>
+          <li>"The two axles reach the result by different mechanisms." &rarr; On the assumed tyre the rear behaved oppositely, while on the measured tyre both axles behave the same way.</li>
+        </ul>
+
+        <h3>Rim Width Assumption</h3>
+        <p>The tyre was tested on 13&times;7 and 13&times;8 rims. The car now runs on 13&times;6 rims, and I do not have access to the latest data for them.</p>
+        <p>The original assumption was that the step down to six inches would be small, since the two tested widths agree to 1.2%. Checking this against the test data showed it was wrong. Comparing within a single tyre model, the 7 to 8 inch step moves vertical stiffness by 1.1&ndash;1.6%, but the 6 to 7 inch step moves it by 3.1&ndash;8.8%. A narrower rim on the same tyre model makes the tyre sidewalls bulge out, resulting in a softer tyre with a slightly narrower contact patch.</p>
+        <p>This was handled by sweeping rather than by applying a correction. The robustness sweep was widened to a floor below the worst plausible case, combining the lowest pressure with the largest rim softening present in the data. The finding holds at every point, ten of ten, on both axles.</p>
+      </section>
+
+      <section>
+        <h2 id="limitations">Limitations</h2>
+        <ul>
+          <li><strong>A quarter car has no pitch, no roll and no load transfer:</strong> It cannot describe front-to-rear damping balance, which is the parameter a driver would feel. Finding 2 covers two independent corners, not a car.</li>
+          <li><strong>Cost values are not comparable between the two findings:</strong> A kerb is a transient, so its RMS falls as the simulation window lengthens and the response decays to zero. The road spectrum is continuous, so its RMS does not decrease. Every curve is normalised to its own minimum, as only the location of the minima is comparable.</li>
+          <li><strong>Single kerb shape:</strong> A 1-cosine bump is a simplified model of a kerb. Kerb profile can vary significantly.</li>
+          <li><strong>No existing damper spec is noted in the study:</strong> The study indicates the target damping, not the damping the car currently runs.</li>
+          <li><strong>Missing data for the recent rim choice:</strong> The data for the 13×6 rim width is unavailable.</li>
+          <li><strong>No experimental validation:</strong> The car requires physical testing to validate the simulation results.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="future-work">Future Work</h2>
+        <ul>
+          <li><strong>No damper data:</strong> Fox VAN Performance at the front, Cane Creek DB Coil IL at the rear, but neither maker publishes force-velocity curves. The IC26 damping spec is not measured.</li>
+          <li><strong>The rim width:</strong> The rim width data is unconfirmed as demonstrated above.</li>
+          <li><strong>The running tyre pressure is assumed:</strong> Vertical rate rises roughly linearly with pressure across the range this car runs, making the tyre pressure an uncertainty in the model.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

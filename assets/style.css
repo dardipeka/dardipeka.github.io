@@ -1,0 +1,865 @@
+/* ==========================================================
+   Portfolio stylesheet — shared by all pages
+   Accent colour: dark navy #0a1628
+   ========================================================== */
+
+:root {
+  --navy: #0a1628;
+  --navy-soft: #16263f;
+  --text: #1c2430;
+  --text-muted: #5a6675;
+  --line: #e4e8ee;
+  --bg-subtle: #f5f7fa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", -apple-system, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: #ffffff;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  /* Fill the viewport so the footer sits at the bottom even on short pages */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  /* width/height attributes reserve space while loading;
+     auto keeps the rendered size set by CSS, not by the attribute */
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--navy);
+}
+
+/* ---------- Accessibility ---------- */
+
+/* Visible keyboard focus everywhere; mouse clicks do not trigger it */
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.navbar :focus-visible,
+.footer :focus-visible {
+  outline-color: #ffffff;
+}
+
+/* Off-screen until a keyboard user tabs to it, then pinned top-left */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 12px;
+  z-index: 100;
+  background: #ffffff;
+  color: var(--navy);
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .card:hover,
+  .button:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Layout helpers ---------- */
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+  /* As a flex child of body, this would otherwise stretch to its widest
+     content (a wide table, say) and push the whole page sideways.
+     width:100% pins it to the viewport so wide children scroll instead. */
+  width: 100%;
+  min-width: 0;
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-brand {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #ffffff;
+}
+
+/* ---------- Home: hero ---------- */
+
+.hero {
+  padding: 96px 0 72px;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.hero .subtitle {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+
+.button {
+  display: inline-block;
+  background: var(--navy);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 13px 28px;
+  border-radius: 8px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background: var(--navy-soft);
+  transform: translateY(-1px);
+}
+
+/* Row of calls to action under the hero. Wraps to as many lines as it needs
+   on a phone rather than shrinking the buttons. */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Secondary button: same shape, outlined instead of filled, so the primary
+   action stays the only solid block on the page. */
+.button.ghost {
+  background: transparent;
+  color: var(--navy);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.button.ghost:hover {
+  background: var(--bg-subtle);
+  box-shadow: inset 0 0 0 1px var(--navy);
+}
+
+/* ---------- Home: text sections ----------
+   Prose blocks under the hero. Capped to the same measure as .project-body
+   so line length stays readable. */
+.home-section {
+  max-width: 760px;
+  padding-bottom: 8px;
+}
+
+.home-section:last-of-type {
+  padding-bottom: 88px;
+}
+
+.home-section h2 {
+  font-size: 1.375rem;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+/* ---------- Page headers (Projects index + project pages) ---------- */
+
+.page-header {
+  padding: 80px 0 32px;
+}
+
+/* On category pages the header follows a back-link, exactly as on project
+   pages, so it takes the same tight spacing as .project-header. */
+.back-link + .page-header {
+  padding-top: 24px;
+}
+
+.page-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  margin-top: 8px;
+  max-width: 640px;
+}
+
+/* ---------- Projects grid ---------- */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 28px;
+  padding-bottom: 80px;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(10, 22, 40, 0.08);
+  border-color: var(--navy);
+}
+
+.card-image {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--bg-subtle), #dde4ec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Force two columns where a category has an even number of projects, so a
+   fourth card is never stranded alone on its own row. */
+.projects-grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 640px) {
+  .projects-grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* When a real photo is used as the card image, crop it to fill the box cleanly */
+img.card-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* For renders and diagrams, where cropping to fill would cut off the part
+   that makes the image readable. Shows the whole thing on white instead. */
+img.card-image.contain {
+  object-fit: contain;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.card-body {
+  padding: 18px 20px 22px;
+}
+
+.card-body h2,
+.card-body h3 {
+  font-size: 1.125rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.card-body p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Individual project pages ---------- */
+
+.back-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--navy);
+}
+
+.project-header {
+  padding: 24px 0 32px;
+}
+
+.project-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+
+.project-header .tagline {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  margin-top: 8px;
+}
+
+.project-body {
+  max-width: 760px;
+  padding-bottom: 96px;
+}
+
+/* Wider body for pages that place images beside the text (see .split below) */
+.project-body.wide {
+  max-width: 1000px;
+}
+
+.project-body section {
+  margin-bottom: 44px;
+}
+
+.project-body h2 {
+  font-size: 1.375rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--line);
+}
+
+.project-body h3 {
+  font-size: 1.125rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.project-body p {
+  margin-bottom: 14px;
+}
+
+.project-body ul {
+  padding-left: 22px;
+  margin-bottom: 14px;
+}
+
+/* Keep line length comfortable in plain text-only sections. Text inside a
+   .split column is sized by its column instead, so it is not constrained here. */
+.project-body > section > p,
+.project-body > section > ul {
+  max-width: 68ch;
+}
+
+/* ---------- On this page ----------
+   A single line of links under the project header, one per section. Plain
+   text, no box, so it reads as navigation rather than decoration. */
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+  font-size: 0.875rem;
+  margin: -8px 0 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.toc-label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.toc a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+/* Land a jumped-to heading below the sticky navbar rather than under it */
+.project-body h2 {
+  scroll-margin-top: 84px;
+}
+
+/* ---------- Section with image(s) beside the text ----------
+   Put the words in <div class="split-text"> and the picture(s) in
+   <div class="split-media">, both inside an element with class "split".
+   Add the extra class "reverse" to place the image on the LEFT instead. */
+.split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+  align-items: start;
+  margin-bottom: 44px;
+}
+
+.split.reverse .split-text { order: 2; }
+.split.reverse .split-media { order: 1; }
+
+/* Add class "media-wide" to give the image column more room (e.g. for charts) */
+.split.media-wide {
+  grid-template-columns: 1fr 1.6fr;
+}
+
+/* Stack multiple images in a media column with a little space between them */
+.split-media figure { margin-bottom: 18px; }
+.split-media figure:last-child { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .split {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  /* When stacked on a phone, always show the text first, then the image */
+  .split.reverse .split-text,
+  .split.reverse .split-media {
+    order: 0;
+  }
+}
+
+/* ---------- Tables ----------
+   Wrap every table in <div class="table-wrap"> so wide tables scroll
+   inside their own box instead of pushing the page sideways. */
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+  margin-bottom: 32px;
+}
+
+.table-wrap table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9375rem;
+}
+
+.table-wrap th,
+.table-wrap td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Headers and short numeric cells stay on one line; prose cells wrap */
+.table-wrap thead th {
+  white-space: nowrap;
+}
+
+.table-wrap thead th {
+  color: var(--navy);
+  font-weight: 600;
+  border-bottom: 2px solid var(--line);
+}
+
+.table-wrap tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Mark the row worth the reader's eye, e.g. the design that was built */
+.table-wrap tr.final td {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.table-wrap caption {
+  caption-side: bottom;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  white-space: normal;
+}
+
+/* A caveat line that qualifies the block below it, e.g. test conditions.
+   Same weight as a figure caption, so it reads as a footnote, not as argument. */
+p.note {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* ---------- Iteration list ----------
+   One row per design iteration: the geometry on the left, its numbers and what
+   changed on the right. Use this instead of a table when the reader needs to
+   see the thing being compared, not only the figures it scored.
+
+       <div class="iteration-list">
+         <article class="iteration">
+           <figure><img src="..." alt="..."></figure>
+           <div class="iteration-text">
+             <h3>Iteration 1</h3>
+             <p class="iteration-metrics">140 N downforce &middot; 33 N drag &middot; L/D 4.24</p>
+             <p>What changed and why.</p>
+           </div>
+         </article>
+       </div>
+
+   Add class="final" to the last <article> to mark the design that was built. */
+.iteration-list {
+  margin-bottom: 32px;
+}
+
+.iteration {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.iteration:first-child {
+  padding-top: 0;
+}
+
+.iteration:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* figure already carries a 32px bottom margin for standalone use */
+.iteration figure {
+  margin: 0;
+}
+
+.iteration h3 {
+  margin: 0 0 6px;
+  font-size: 1.125rem;
+  color: var(--navy);
+}
+
+.iteration-metrics {
+  margin: 0 0 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.iteration-text p:last-child {
+  margin-bottom: 0;
+  font-size: 0.9375rem;
+}
+
+/* The design that was actually built gets its numbers in full contrast */
+.iteration.final .iteration-metrics {
+  color: var(--navy);
+}
+
+/* Side by side, the image column is too narrow to read on a phone */
+@media (max-width: 720px) {
+  .iteration {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* ---------- Figures & image galleries (project pages) ---------- */
+
+/* A single captioned image (used for the hero image and standalone figures) */
+figure {
+  margin: 0 0 32px;
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  display: block;
+}
+
+/* CAD renders already carry their own viewport background, so a border and
+   fill around them frames the image twice. Plots and photos keep the border. */
+figure.render img {
+  border: 0;
+  background: transparent;
+}
+
+figcaption {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* A responsive grid of figures — drops from 2-up to 1-up on narrow screens.
+   Use class="figure-grid cols-3" to aim for three across on wide screens. */
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.figure-grid.cols-3 {
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+
+.figure-grid figure {
+  margin-bottom: 0;
+}
+
+/* A call-to-action link directly under a hero figure (e.g. "view the 3D model").
+   Uses the existing .button style; this only handles the spacing. */
+p.model-link {
+  margin: 0 0 44px;
+}
+
+/* A tall portrait photo. Left full width it would tower over the page, so cap
+   it and centre it. Add class "portrait" to the <figure>. */
+figure.portrait img,
+figure.portrait video {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Phone-shot video is far taller than it is wide, so it needs a tighter cap
+   than a portrait photo or it takes over the page. */
+figure.portrait video {
+  max-width: 400px;
+}
+
+figure.portrait figcaption {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* For an image too detailed to shrink usefully (a block diagram, say).
+   Wrap ONLY the <img> in this, leaving the <figcaption> outside it:
+     <figure>
+       <div class="figure-scroll"><img src="..."></div>
+       <figcaption>...</figcaption>
+     </figure>
+   Fits the column normally; on a narrow screen it scrolls sideways at full
+   size instead of shrinking the labels to nothing. */
+.figure-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .figure-scroll img {
+    width: auto;
+    max-width: none;
+  }
+}
+
+/* Videos behave like images: same border, rounded corners and captions.
+   Put a <video> inside a <figure> exactly as you would an <img>. */
+figure video {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #000;
+  display: block;
+}
+
+/* Side-by-side videos that stay portrait-friendly. Because these clips are
+   taller than they are wide, they need a smaller minimum than .figure-grid. */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+  /* These clips are portrait, so cap the width or they dominate the page.
+     Raise or remove this to show them larger. */
+  max-width: 720px;
+}
+
+.video-grid figure {
+  margin-bottom: 0;
+}
+
+/* On phones, stack the clips full-width rather than squeezing two portrait
+   videos side by side. */
+@media (max-width: 640px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.65);
+  padding: 28px 0;
+  font-size: 0.875rem;
+  /* Pushed to the bottom of the viewport on short pages (e.g. the home page) */
+  margin-top: auto;
+}
+
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer a:hover {
+  color: #ffffff;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  /* Brand and links on one row: halves the sticky bar's share of the screen */
+  .navbar .container {
+    height: 52px;
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+  }
+
+  /* Three A4 sheets stacked at phone width are two screens of unreadable
+     line art. Show the first; the PDF button beneath carries the rest. */
+  .drawing-set figure:nth-child(n+2) {
+    display: none;
+  }
+
+  .hero {
+    padding: 64px 0 48px;
+  }
+}
+
+
+/* ---------- Print ----------
+   A project page printed or saved as PDF: content only, black on white,
+   figures kept whole. */
+@media print {
+  .navbar,
+  .footer,
+  .toc,
+  .skip-link,
+  .model-link,
+  .hero-actions,
+  .back-link,
+  figure:has(video) {
+    display: none !important;
+  }
+
+  body {
+    color: #000000;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .container,
+  .project-body,
+  .project-body.wide {
+    max-width: none;
+    padding: 0;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  figure,
+  .iteration,
+  .card {
+    break-inside: avoid;
+  }
+
+  .card {
+    box-shadow: none;
+    transform: none;
+  }
+}

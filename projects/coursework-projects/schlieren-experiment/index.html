@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>Schlieren Experiment &ndash; Dardi Peka</title>
+  <meta name="description" content="Measuring supersonic flow over a lifting double-wedge aerofoil at M ≈ 1.4 and testing where shock-expansion theory holds, and where it breaks down.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Schlieren Experiment – Dardi Peka">
+  <meta property="og:description" content="Measuring supersonic flow over a lifting double-wedge aerofoil at M ≈ 1.4 and testing where shock-expansion theory holds, and where it breaks down.">
+  <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/style.css">
+  <link rel="stylesheet" href="../../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="../index.html">&larr; Back to coursework projects</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Supersonic Wind Tunnel Schlieren Experiment</h1>
+      <!-- EDIT: one-line subtitle / tagline for this project -->
+      <p class="tagline">Measuring supersonic flow over a lifting double-wedge aerofoil at M &asymp; 1.4 and testing where shock-expansion theory holds, and where it breaks down.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#overview">Overview</a>
+      <a href="#experimental-setup-and-method">Experimental Setup and Method</a>
+      <a href="#uncertainty-analysis">Uncertainty Analysis</a>
+      <a href="#results-at-0-symmetric-case">Results at &alpha; = 0&deg;: Symmetric Case</a>
+      <a href="#results-at-7-5-lifting-case">Results at &alpha; = 7.5&deg;: Lifting Case</a>
+      <a href="#limitations-and-future-work">Limitations and Future Work</a>
+      <a href="#key-outcomes">Key Outcomes</a>
+    </nav>
+
+    <!-- Image layout reminder: <section class="split"> puts the image beside the text
+         (add "reverse" for image-left, "media-wide" for a bigger image column).
+         A lone <figure> inside the body is full-width. -->
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="overview">Overview</h2>
+        <ul>
+          <li>Individual coursework for EMS613U &ndash; Aerodynamics of High Speed Flows, based on testing carried out in a lab group at QMUL's induction supersonic wind tunnel.</li>
+          <li>Extracted Mach, shock, and expansion-wave angles from the schlieren videos, then compared them against inviscid shock-expansion theory and linearised theory to estimate pressures and force coefficients.</li>
+        </ul>
+
+        <!-- EDIT: the two raw schlieren runs, shown side by side.
+             To swap a video, replace the file in the videos/ folder and keep the same name.
+             Attributes: controls = play bar, loop = repeat, muted + autoplay = plays silently
+             on load, playsinline = won't force fullscreen on iPhone,
+             preload="metadata" = only loads the first bit until the visitor presses play. -->
+        <div class="video-grid">
+          <figure>
+            <video controls loop muted playsinline preload="metadata"
+                   poster="videos/schlieren-0deg-poster.jpg">
+              <source src="videos/schlieren-0deg.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+              <a href="videos/schlieren-0deg.mp4">Download the &alpha; = 0&deg; run instead.</a>
+            </video>
+            <figcaption>Raw schlieren run at &alpha; = 0&deg;.</figcaption>
+          </figure>
+          <figure>
+            <video controls loop muted playsinline preload="metadata"
+                   poster="videos/schlieren-7p5deg-poster.jpg">
+              <source src="videos/schlieren-7p5deg.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+              <a href="videos/schlieren-7p5deg.mp4">Download the &alpha; = 7.5&deg; run instead.</a>
+            </video>
+            <figcaption>Raw schlieren run at &alpha; = 7.5&deg;.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="experimental-setup-and-method">Experimental Setup and Method</h2>
+        <ul>
+          <li><strong>Apparatus:</strong> Symmetrical double-wedge aerofoil (100&nbsp;mm chord, 10&deg; apex angle) on an adjustable-incidence sting, in the Whitehead Aeronautical Laboratory's induction supersonic wind tunnel (127&nbsp;mm &times; 135&nbsp;mm working section, nominal M = 1.4).</li>
+          <li><strong>Flow visualisation:</strong> Double-pass schlieren system. Density gradients deflect light, and a knife edge converts the deflections into intensity variations, which are recorded on video.</li>
+          <li><strong>Measurement:</strong> A MATLAB script I wrote extracted five frames per run at 30-frame intervals, with the PIVlab package used to enhance contrast before angle extraction. For each wave, two points were selected along the visible line and the angle computed against a defined freestream reference, then averaged across the five frames.</li>
+        </ul>
+        <figure>
+          <img loading="lazy" decoding="async" width="1365" height="324" src="images/wedge-model.png" alt="Double-wedge aerofoil model at 0 and 7.5 degrees incidence with numbered flow regions">
+          <figcaption>The double-wedge model at both incidence angles, with the numbered flow regions used throughout the analysis (1 = freestream; 2, 4 = upper wedge surfaces; 3, 5 = lower wedge surfaces).</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2 id="uncertainty-analysis">Uncertainty Analysis</h2>
+        <ul>
+          <li>The dominant uncertainty was manual angle extraction from the schlieren images, not the resolution of the laboratory instrument, confirmed by propagating both through the calculation.</li>
+          <li>Each wave angle was measured five times. The mean, standard deviation, and a 95% confidence interval (t = 2.776, 4 degrees of freedom) were computed for every reported angle.</li>
+          <li>Uncertainties were propagated through to the derived quantities: M<sub>&infin;</sub> = 1.368 &plusmn; 0.032 and P<sub>&infin;</sub> = 31.44 &plusmn; 1.41 kPa at &alpha; = 0&deg;.</li>
+          <li>Shock angles proved far more reliable (&plusmn;0.8&ndash;1.4&deg;) than expansion-fan boundaries (&plusmn;4&ndash;5&deg;), because fan edges are diffused and contaminated by interference of reflected waves.</li>
+        </ul>
+      </section>
+
+      <section class="split media-wide">
+        <div class="split-text">
+          <h2 id="results-at-0-symmetric-case">Results at &alpha; = 0&deg;: Symmetric Case</h2>
+          <ul>
+            <li>Based on shock-expansion theory, equal upper and lower pressures should give zero lift. The symmetric setup tests this directly.</li>
+            <li>Measured leading-edge shock angles (&beta;<sub>12</sub> = 53.15&deg; &plusmn; 0.83&deg;, &beta;<sub>13</sub> = 52.84&deg; &plusmn; 1.32&deg;) agreed with the inviscid theory prediction of 54.72&deg; to within ~2&deg;. These shocks remained attached.</li>
+            <li>Rear expansion fans measured below prediction (16.70&deg; &plusmn; 4.00&deg; and 19.79&deg; &plusmn; 4.31&deg; vs 27.54&deg;). The discrepancy was attributed to the diffused fan boundaries rather than a failure of the theory, given the calculated extraction uncertainty.</li>
+            <li>Processed pressure coefficients confirmed the symmetric case, <br> C<sub>L</sub> = 0 and C<sub>D</sub> = 0.0338.</li>
+            <li>The non-zero drag is wave drag. This is a supersonic flow mechanism, in direct contrast to subsonic inviscid flow where d&rsquo;Alembert&rsquo;s paradox gives zero drag.</li>
+          </ul>
+        </div>
+        <div class="split-media">
+          <figure>
+            <img loading="lazy" decoding="async" width="604" height="736" src="images/schlieren-0deg.webp" alt="Annotated schlieren image of the double-wedge at 0 degrees incidence">
+            <figcaption>Annotated schlieren at &alpha; = 0&deg;. Colour-coded Mach wave, leading-edge oblique shocks, and mid-wedge expansion fans, with measured angles.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="split reverse media-wide">
+        <div class="split-text">
+          <h2 id="results-at-7-5-lifting-case">Results at &alpha; = 7.5&deg;: Lifting Case</h2>
+          <ul>
+            <li>At this incidence angle the upper leading edge sees an expansion fan, the lower a strong oblique shock.</li>
+            <li>The upper surface follows Prandtl-Meyer behaviour as expected. The Mach number rises from 1.362 to 1.449 and then 1.789 along the surface, with static pressure falling accordingly.</li>
+            <li>The lower surface does not follow the attached-shock assumption. The schlieren image shows a curved leading-edge shock, and the post-shock Mach number drops to 0.930. The flow becomes subsonic locally, so no valid attached &theta;&ndash;&beta;&ndash;Mach solution exists.</li>
+            <li>The measured &beta;<sub>13</sub> = 68.27&deg; &plusmn; 1.41&deg; was interpreted as evidence of shock detachment. This result matched the behaviour reported for lifting double-wedges in NASA's Gooderum &amp; Wood study (1956).</li>
+            <li>To still produce force estimates, I applied a sonic approximation (M<sub>3</sub> &asymp; 1.01) for the lower-surface expansion, giving C<sub>L</sub> = 0.399 and C<sub>D</sub> = 0.0874, which were explicitly flagged as modelled estimates, not direct measurements.</li>
+          </ul>
+        </div>
+        <div class="split-media">
+          <figure>
+            <img loading="lazy" decoding="async" width="604" height="730" src="images/schlieren-7p5deg.webp" alt="Annotated schlieren image of the double-wedge at 7.5 degrees incidence">
+            <figcaption>Annotated schlieren at &alpha; = 7.5&deg;. Upper-surface expansion fan, curved lower shock, and trailing-edge oblique shocks. The curved lower shock indicated detachment.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="limitations-and-future-work">Limitations and Future Work</h2>
+        <ul>
+          <li>Shock-expansion theory assumes straight surfaces, attached waves, and uniform regions, assumptions the 7.5&deg; test case violates.</li>
+          <li>Linearised theory underestimates both compression and expansion, as it assumes small flow-turning angles (&lt; ~4&deg;), whereas the wedge turns the flow by 5&ndash;12.5&deg;.</li>
+          <li>The tunnel&rsquo;s power requirements allowed only one run per incidence angle, so every angle had to come from the individual schlieren videos.</li>
+          <li>For future tests, surface pressure taps would validate the inferred pressures and force coefficients directly, instead of relying entirely on wave-angle extraction.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="key-outcomes">Key Outcomes</h2>
+        <ul>
+          <li>Validated shock-expansion theory at &alpha; = 0&deg; to within ~2&deg; on shock angles, and demonstrated wave drag (C<sub>D</sub> = 0.0338) as a supersonic drag mechanism.</li>
+          <li>Identified and physically explained the breakdown of attached-shock theory at &alpha; = 7.5&deg;, compared against published NASA experimental data.</li>
+          <li>Applied a sonic approximation to extract force estimates where theory no longer worked. Propagated measurement uncertainty through to derived quantities.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

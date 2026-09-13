@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>Validation &amp; Mesh Sensitivity &ndash; Dardi Peka</title>
+  <meta name="description" content="The stationary baseline and the grid convergence study, the five tilting case meshes, and which results have converged.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Validation &amp; Mesh Sensitivity – Dardi Peka">
+  <meta property="og:description" content="The stationary baseline and the grid convergence study, the five tilting case meshes, and which results have converged.">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="stylesheet" href="../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="index.html">&larr; Back to Tiltrotor Conversion Wake</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Validation &amp; Mesh Sensitivity</h1>
+      <!-- EDIT: one-line subtitle / tagline -->
+      <p class="tagline">The stationary baseline and the grid convergence study, the five tilting case meshes, and which results have converged.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#the-no-tilt-baseline">The No-Tilt Baseline</a>
+      <a href="#the-tilting-meshes">The Tilting Meshes</a>
+      <a href="#which-run-is-most-credible">Which Run Is Most Credible</a>
+      <a href="#convergence-summary">Convergence Summary</a>
+    </nav>
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="the-no-tilt-baseline">The No-Tilt Baseline</h2>
+        <p>Before introducing rotation I ran a stationary case, to verify the unsteady formulation, the timestep treatment and mesh sensitivity without the additional complexity of overset motion. I carried out a grid convergence study on a triplet of meshes at a refinement ratio of 1.5, following Celik et al. and other literature.</p>
+        <ul>
+          <li><strong>Apparent order p = 2.422:</strong> This is close to the 2nd-order convective and temporal discretisation I used.</li>
+          <li><strong>Fine-to-medium error band (GCI) of 1.894%:</strong> The coarse-to-medium band is much larger at 18.5%, as expected from the spread in mesh quality.</li>
+          <li><strong>St = 0.260&ndash;0.298:</strong> Across the triplet, a reasonable Strouhal number range for a high-Re bluff body with features of rectangular and elliptical cylinders.</li>
+          <li>I could not confidently establish the asymptotic range, because the quality difference between meshes in the triplet was too large. The study supports the methodology, but it does not demonstrate full mesh independence.</li>
+        </ul>
+        <figure>
+          <img loading="lazy" decoding="async" width="1364" height="453" src="images/gci-histories.webp" alt="Drag coefficient solution histories for the grid convergence mesh triplet">
+          <figcaption>Solution histories for the grid convergence triplet on the stationary case. Periodic shedding is clearly established, and the coarse mesh sits consistently high.</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2 id="the-tilting-meshes">The Tilting Meshes</h2>
+        <p>The tilting case adds rigid-body rotation, overset interpolation, wall modelling and a larger timestep than the baseline, so it needed its own numerical evidence. I ran five meshes, from 40,624 to 695,805 cells, at increasingly long runtimes (from 13 hours for the first run to 90 hours for the final one).</p>
+        <ul>
+          <li><strong>Drag is comparatively clustered and lift is not:</strong> The non-finest meshes differ from the finest by roughly 12.9% to 23.7% in C<sub>L</sub>, and lift is most sensitive late in the sweep when the wake is least settled. Mean C<sub>D</sub> spans 3.313 to 3.720 across the family, while mean C<sub>L</sub> spans 1.619 to 2.002.</li>
+          <li><strong>Convergence is non-monotonic:</strong> Both mean coefficients rise from Mesh 3 to Mesh 4, then fall again at Mesh 5. Refinement initially strengthens the separated wake, and further refinement does not automatically produce a cleaner global solution.</li>
+        </ul>
+        <figure>
+          <img loading="lazy" decoding="async" width="1342" height="803" src="images/convergence-nonmonotonic.png" alt="Mean drag and lift coefficient against nondimensional grid spacing">
+          <figcaption>Mean C<sub>D</sub> and C<sub>L</sub> against nondimensional grid spacing, refinement increasing to the right. The rise at Mesh 4 followed by the drop at Mesh 5 is the non-monotonic behaviour.</figcaption>
+        </figure>
+      </section>
+
+      <section class="split media-wide">
+        <div class="split-text">
+          <h2 id="which-run-is-most-credible">Which Run Is Most Credible</h2>
+          <p>On the evidence available I take Mesh 4 rather than Mesh 5 as the most credible run, judged on force-coefficient stability, CFL history and wall y<sup>+</sup> consistency rather than on cell count.</p>
+          <ul>
+            <li><strong>CFL:</strong> Mesh 4 stays the smoothest and lowest through most of the sweep at 0.25&ndash;0.35. Mesh 3 peaks at 0.88, Mesh 1 spikes above 1.0, and Mesh 5 climbs to about 0.82 late in the rotation.</li>
+            <li><strong>Wall y<sup>+</sup>:</strong> Meshes 1&ndash;3 put much of the nacelle surface in the buffer layer (y<sup>+</sup> &asymp; 5&ndash;30), which is the region wall functions handle worst. Meshes 4 and 5 sit mostly in the low inertial sublayer at y<sup>+</sup> &asymp; 30&ndash;40.</li>
+            <li>I did not maintain the y<sup>+</sup> &asymp; 70 target anywhere, a consequence of the transient case departing from the flat-plate assumption used to build the first-layer estimate.</li>
+          </ul>
+        </div>
+        <div class="split-media">
+          <figure>
+            <img loading="lazy" decoding="async" width="1324" height="901" src="images/wall-yplus.webp" alt="Wall y+ distribution by surface area across the five meshes">
+            <figcaption>Wall y<sup>+</sup> distribution by nacelle surface area for each mesh, with the y<sup>+</sup> = 70 target marked.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="convergence-summary">Convergence Summary</h2>
+        <p>The no-tilt grid convergence study supports the transient methodology on the fixed-body problem. It is not a convergence proof for the tilting case. The finest mesh does not give the single correct answer to the tilting case, but the mesh family does converge towards consistent aerodynamic behaviour.</p>
+        <ul>
+          <li><strong>Robust across the meshes:</strong> The strong drag growth through tilting, the broadening wake, the increasing sensitivity of lift later in the sweep, and the persistence of low-frequency shedding.</li>
+          <li><strong>Mesh sensitivity:</strong> Lift values late into the conversion and the spectral peaks.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

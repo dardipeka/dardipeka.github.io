@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>Front Wing &ndash; Dardi Peka</title>
+  <meta name="description" content="Aerodynamic design of the IC25 front wing, from initial concept to the final geometry for manufacturing.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Front Wing – Dardi Peka">
+  <meta property="og:description" content="Aerodynamic design of the IC25 front wing, from initial concept to the final geometry for manufacturing.">
+  <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/style.css">
+  <link rel="stylesheet" href="../../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="../index.html">&larr; Back to Formula Student projects</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Front Wing &ndash; QMFS IC25</h1>
+      <!-- EDIT: one-line subtitle / tagline for this project -->
+      <p class="tagline">Aerodynamic design of the IC25 front wing, from initial concept to the final geometry for manufacturing.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#overview">Overview</a>
+      <a href="#design-evolution">Design Evolution</a>
+      <a href="#vortex-generator-vg-testing">Vortex Generator (VG) Testing</a>
+      <a href="#simulation-approach">Simulation Approach</a>
+      <a href="#material-selection-and-rule-compliance">Material Selection and Rule Compliance</a>
+      <a href="#engineering-drawing">Engineering Drawing</a>
+      <a href="#outcome">Outcome</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#future-work">Future Work</a>
+    </nav>
+
+    <figure class="render">
+      <img width="1342" height="615" src="images/hero.png" alt="Final IC25 front wing CAD geometry">
+      <figcaption>The final geometry: uniform-chord main element, simplified endplates, no vortex generators, and no sweep.</figcaption>
+    </figure>
+
+    <p class="model-link">
+      <a class="button ghost" href="https://autode.sk/4hlZcmT" target="_blank" rel="noopener">Open the 3D Model &rarr;</a>
+    </p>
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="overview">Overview</h2>
+        <ul>
+          <li>I designed the front wing for the Queen Mary Formula Student IC25 car, from December 2023 to February 2025, as part of the aerodynamics department.</li>
+          <li>The front wing is the main downforce-producing component on this car, balanced against mass and cost on a car concept built around packaging and adjustability rather than an aero package.</li>
+          <li>The wing combines two- and three-element sections, with endplates shaped to route flow outboard of the front tyres and shed the resulting vortices clear of them.</li>
+          <li>Eppler E423 was selected as the base aerofoil and retained throughout. It is a reliable aerofoil for lift production at low Reynolds numbers and considerably easier to manufacture than a more aggressive section such as the Selig S1223.</li>
+          <li>Across five design iterations the wing went from 82 N of downforce at a 3.15 downforce-to-drag ratio to 181.6 N at 5.41.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="design-evolution">Design Evolution</h2>
+        <p>The department target was a downforce-to-drag ratio of at least 4:1, alongside a manufacturability constraint. The team's experience with aero-related manufacturing was very limited; therefore, geometry that was difficult to lay up was unusable for the composites department.</p>
+        <p>Each iteration removed a geometric feature and produced more downforce than the previous one. The positive-camber main section, the sweep, the taper and the vortex generators were each removed in turn. Losses were recovered by reconfiguring element angles, overlaps and slot gaps.</p>
+
+        <p class="note">Every iteration below was simulated at the department standard of 15 m/s. The initial concept was run in SolidWorks Flow rather than STAR-CCM+, so its numbers are indicative only.</p>
+
+        <!-- EDIT: one <article class="iteration"> per design iteration. Image left,
+             numbers and reasoning right. Add class="final" to mark the built design. -->
+        <div class="iteration-list">
+
+          <article class="iteration">
+            <figure class="render">
+              <img loading="lazy" decoding="async" width="1674" height="1011" src="images/concept.webp" alt="First front wing concept with cambered, swept geometry">
+            </figure>
+            <div class="iteration-text">
+              <h3>Initial concept</h3>
+              <p class="iteration-metrics">82 N downforce &middot; 26 N drag &middot; L/D 3.15</p>
+              <p>Positive camber on the main element, swept surfaces, complex endplate geometry. The element gaps were so inconsistent that the geometry could not be meshed reliably, so this one never made it into STAR-CCM+.</p>
+            </div>
+          </article>
+
+          <article class="iteration">
+            <figure class="render">
+              <img loading="lazy" decoding="async" width="1698" height="839" src="images/iteration-1.webp" alt="Front wing iteration with aerofoil-shaped main element and gurney flaps">
+            </figure>
+            <div class="iteration-text">
+              <h3>Iteration 1</h3>
+              <p class="iteration-metrics">140 N downforce &middot; 33 N drag &middot; L/D 4.24</p>
+              <p>The two- and three-element sections were swapped to fit the FSUK rules, and the main element was reshaped to follow the aerofoil so it produced downforce instead of lift. Gurney flaps were added and account for most of the downforce gain.</p>
+            </div>
+          </article>
+
+          <article class="iteration">
+            <figure class="render">
+              <img loading="lazy" decoding="async" width="1175" height="543" src="images/iteration-2.webp" alt="Front wing iteration with the sweep removed from every element">
+            </figure>
+            <div class="iteration-text">
+              <h3>Iteration 2</h3>
+              <p class="iteration-metrics">150 N downforce &middot; 32 N drag &middot; L/D 4.69</p>
+              <p>Sweep removed from every element, which made the surfaces flat and constant-section and therefore possible to lay up. A taper was added through the middle of the main element to clear the new chassis, and the inboard mounting plates were revised at the same time.</p>
+            </div>
+          </article>
+
+          <article class="iteration">
+            <figure class="render">
+              <img loading="lazy" decoding="async" width="1322" height="750" src="images/iteration-3.png" alt="Front wing with vortex generators fitted to the main element">
+            </figure>
+            <div class="iteration-text">
+              <h3>Iteration 3</h3>
+              <p class="iteration-metrics">158.9 N downforce &middot; ~33 N drag &middot; L/D 4.82</p>
+              <p>Vortex generators added to the main element to re-energise the boundary layer, with the endplates reshaped to be simpler to manufacture. 6.7% more downforce for a 2.4% drag penalty.</p>
+            </div>
+          </article>
+
+          <article class="iteration final">
+            <figure class="render">
+              <img loading="lazy" decoding="async" width="1342" height="615" src="images/final.png" alt="Final front wing geometry with uniform chord and flat endplates">
+            </figure>
+            <div class="iteration-text">
+              <h3>Final design</h3>
+              <p class="iteration-metrics">181.6 N downforce &middot; 33.6 N drag &middot; L/D 5.41</p>
+              <p>Taper and vortex generators both removed. The main element keeps a uniform chord along its span, the endplates are flat with a simple outward sweep, and the three elements were configured to 2&deg;, 39&deg; and 56&deg; with 17 mm and 12 mm slot gaps to hold the flow attached at those angles. The best aerodynamic performance of every iteration, and the simplest to manufacture.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <p>A weighted decision matrix across manufacturing cost, lead time, simulation results, mass and manufacturability scored the final design 65 against 25 for the initial concept.</p>
+
+      </section>
+
+      <section>
+        <h2 id="vortex-generator-vg-testing">Vortex Generator (VG) Testing</h2>
+        <p>Increasing the elements' angles of attack in iteration 2 resulted in higher downforce figures but showed the flow separating off the main element before it reached the top element. The VGs in iteration 3 were the answer to the problem, as shown by their aerodynamic performance. I removed them from the final design for the following reasons:</p>
+        <ul>
+          <li>The fins require meticulous testing of 3D printing settings to print a large number of identical ones.</li>
+          <li>Using more adhesive for mounting increased composites department costs.</li>
+          <li>Simulation showed them sitting too far upstream, with separation still beginning earlier than expected.</li>
+          <li>The position of the VGs is flow-sensitive, making precise mounting difficult.</li>
+        </ul>
+        <p>The next iteration was further simulation of the three-element setup, ensuring the flow stayed attached without VGs. This exceeded the previous result, 181.6 N against 158.9 N, on simpler geometry that cost less to manufacture.</p>
+        <figure>
+          <img loading="lazy" decoding="async" width="1874" height="867" src="images/vg-separation.webp" alt="Flow visualisation over the main element showing early separation">
+          <figcaption>Flow visualisation showing earlier separation than expected, despite the VGs.</figcaption>
+        </figure>
+      </section>
+
+      <section class="split media-wide">
+        <div class="split-text">
+          <h2 id="simulation-approach">Simulation Approach</h2>
+          <ul>
+            <li>Initial use of JavaFoil for element gaps and overlaps. Geometry replicated in SolidWorks, then the wing was solved in STAR-CCM+ at 15 m/s flow velocity.</li>
+            <li>From iteration 2 onwards, the wing was simulated with the full vehicle. This was done to analyse the wing wake and the aerodynamic behaviour of the rest of the car. Whole-car figures sat around 225&ndash;232 N of downforce against 174&ndash;175 N of drag.</li>
+            <li>Making the geometry meshable was the first design constraint. Custom surface meshes were applied to flow-sensitive components (e.g., front wing), while a global mesh setting was set up for the bluff body of the car and the domain.</li>
+            <li>Runs were carried to residual convergence rather than a fixed iteration count.</li>
+          </ul>
+        </div>
+        <div class="split-media">
+          <figure>
+            <img loading="lazy" decoding="async" width="1882" height="830" src="images/cfd-fullcar.webp" alt="Full-vehicle CFD scene showing the wing in the context of the car">
+            <figcaption>Later runs solved the wing on the full car, to demonstrate its effect on the flow over the rear wing and inspect the stagnation at the tyre.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="material-selection-and-rule-compliance">Material Selection and Rule Compliance</h2>
+        <p>Material selection was run as its own weighted comparison in Ansys EduPack, against the loads the FSUK rules specify: a 200 N distributed load over 225 cm&sup2; with under 10 mm deflection (T8.4.1), and a 50 N point load with under 25 mm deflection (T8.4.2), plus minimum edge radii on all exposed surfaces (T8.3.1).</p>
+        <p>Stiffness-density, strength-density and cost-stiffness comparisons put carbon fibre&ndash;epoxy ahead on every performance parameter and behind only on cost, scoring 72 against 63 for glass fibre and 53 for both cast aluminium and stainless steel. Stainless steel is stiff and lower cost but too dense for a component mounted at the front of the car. Sponsorship from EasyComposites eased the cost of epoxy orders, so the fibre choice was based on performance.</p>
+        <p>The deflection cases were checked separately. The composites lead ran the distributed load case in Ansys, which returned 0.93 mm against the 10 mm limit. This was done on an isotropic model at fibre modulus rather than a laminate, so the true figure is several times that and still comfortably inside.</p>
+      </section>
+
+      <section>
+        <h2 id="engineering-drawing">Engineering Drawing</h2>
+        <p>The wing was released for manufacture as FR-0048-053 Revision 01 in May 2025, drawn by me and checked and approved by the Chief Engineer. Due to time and material constraints in both our composites department and the university workshop, the wing was not built for the season.</p>
+        <figure>
+          <div class="figure-scroll">
+            <img loading="lazy" decoding="async" width="2332" height="1649" src="images/drawing.webp" alt="Engineering drawing of the IC25 front wing assembly, with two section views">
+          </div>
+          <figcaption>Sections A-A and B-B contain the numbers the design was configured on: 1.45&deg; on the main element and 32&deg; on the inboard two-element section, 39&deg; and 56&deg; on the outboard three-element section. R12 edge radii sit well clear of the 5 mm and 3 mm minimums in T8.3.1.</figcaption>
+        </figure>
+        <p class="model-link">
+          <a class="button ghost" href="drawings/FR-0048-053-front-wing-assembly.pdf" target="_blank" rel="noopener">Open the Drawing (PDF) &rarr;</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 id="outcome">Outcome</h2>
+        <p>Modelled in OptimumLap, the final package returned a 63.3 s lap on the 2015 FSUK endurance track: 0.32&ndash;0.34 s faster than the VG design, and 1.74 s faster than the initial aero package, on less material and at lower cost.</p>
+      </section>
+
+      <section>
+        <h2 id="limitations">Limitations</h2>
+        <ul>
+          <li>The team has no wind tunnel able to match the Reynolds numbers of the CFD, and a 3D-printed scale model would only support smoke or tuft flow visualisation. Track testing the manufactured wing was considered the most practical and cost-effective validation method.</li>
+          <li>One early iteration used a self-modified E423 section rather than the actual profile, which may have affected that run's numbers. A standard E423, configured in JavaFoil, was used for every other iteration.</li>
+          <li>The final design is not the lightest one. Downforce-to-mass was traded for geometry the team could reliably manufacture in its first year of building a wing.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="future-work">Future Work</h2>
+        <ul>
+          <li><strong>Validation:</strong> Run half the wing at full scale in the low-speed wind tunnel and apply symmetry to the missing half for force measurements. This can be accompanied by particle image velocimetry (PIV) or smoke and tuft visualisation based on available team resources.</li>
+          <li><strong>Mesh convergence study:</strong> The iterations were run with similar settings that ensured residual convergence, but a mesh sensitivity study was not conducted. A GCI study should be conducted to calculate discretisation error and balance mesh refinement with available computing power.</li>
+          <li><strong>Simulation configurations and post-processing:</strong> The aerodynamic package must be run at different vehicle configurations such as yaw during cornering. Post-processing should include longitudinal pressure sweeps to analyse the wake from the components, the flow near the tyre, and the interaction between the aero package and the rest of the car.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: page title shown in the browser tab -->
+  <title>Steering Wheel &ndash; Dardi Peka</title>
+  <meta name="description" content="A carbon fibre steering wheel designed for the IC24 car, carried into IC25 unchanged, and built for IC26 using resin infusion.">
+  <meta name="theme-color" content="#0a1628">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Steering Wheel – Dardi Peka">
+  <meta property="og:description" content="A carbon fibre steering wheel designed for the IC24 car, carried into IC25 unchanged, and built for IC26 using resin infusion.">
+  <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/style.css">
+  <link rel="stylesheet" href="../../../assets/makeover.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar">
+    <div class="container">
+      <!-- EDIT: site name (appears on every page) -->
+      <a class="nav-brand" href="../../../index.html">Dardi Peka</a>
+      <div class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../projects.html" class="active" aria-current="true">Projects</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="main">
+    <a class="back-link" href="../index.html">&larr; Back to Formula Student projects</a>
+
+    <header class="project-header">
+      <!-- EDIT: project title -->
+      <h1>Steering Wheel &ndash; QMFS IC24 to IC26</h1>
+      <!-- EDIT: one-line subtitle / tagline for this project -->
+      <p class="tagline">A carbon fibre steering wheel designed for the IC24 car, carried into IC25 unchanged, and built for IC26 using resin infusion.</p>
+    </header>
+
+    <nav class="toc" aria-label="On this page">
+      <span class="toc-label">On this page</span>
+      <a href="#project-overview">Project Overview</a>
+      <a href="#requirements-and-rules">Requirements and Rules</a>
+      <a href="#design-and-material-selection">Design and Material Selection</a>
+      <a href="#structural-analysis">Structural Analysis</a>
+      <a href="#manufacturing">Manufacturing</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#future-work">Future Work</a>
+    </nav>
+
+    <figure class="portrait">
+      <img width="805" height="1170" src="images/hero.jpg" alt="Finished carbon fibre steering wheel mounted on the car">
+      <figcaption>The IC26 wheel on the car. Carbon fibre base plate, 3D-printed grips bonded to the rim and wrapped for texture.</figcaption>
+    </figure>
+
+    <div class="project-body wide">
+
+      <section>
+        <h2 id="project-overview">Project Overview</h2>
+        <p>The steering wheel is the driver's only interface to the steering system. Its design is determined by structural requirements, rule compliance, ergonomics, and packaging. I was responsible for the design, the structural analysis, and the material selection.</p>
+        <ul>
+          <li><strong>IC24:</strong> Designed from scratch, replacing a previous wheel that had to be scaled down to clear the front hoop.</li>
+          <li><strong>IC25:</strong> Carried over unchanged, as the driver line-up and steering system were identical to the previous concept.</li>
+          <li><strong>IC26:</strong> Geometry retained, but the padding was revised for a slightly different driver preference and the part was rebuilt using resin infusion rather than wet layup, as the composites department now had the process available.</li>
+        </ul>
+        <p>The design is a flat carbon fibre base plate with separate 3D-printed grips bonded to the rim, mounted to a quick release on three bolts. Component mass is about 280&ndash;300 g for the wheel and padding, with the quick release adding about 260&ndash;300 g depending on fasteners.</p>
+      </section>
+
+      <section class="split">
+        <div class="split-text">
+          <h2 id="requirements-and-rules">Requirements and Rules</h2>
+          <p>The wheel is constrained more by the rulebook and the packaging than by applied load. The following rules were considered:</p>
+          <ul>
+            <li><strong>T2.6.6:</strong> Positioned no more than 250 mm rearward of the front hoop.</li>
+            <li><strong>T2.6.7:</strong> Continuous near-circular or near-oval perimeter. Straight sections are allowed, concave sections are not.</li>
+            <li><strong>T2.6.8:</strong> In any angular position, no higher than the top of the front hoop, including the driver's hand inside a racing glove.</li>
+            <li><strong>T4.1.3:</strong> Removable so the cockpit opening template can be fitted.</li>
+          </ul>
+          <p>The previous wheel was scaled down, reducing the steering torque, and a manufacturing mistake left its quick release mounted off centre. The new wheel ensured the mounting was central, while providing a longer base to improve both torque and ergonomics.</p>
+        </div>
+        <div class="split-media">
+          <figure class="render">
+            <img loading="lazy" decoding="async" width="673" height="505" src="images/cad-render.png" alt="CAD model of the steering wheel base plate and grips">
+            <figcaption>Steering wheel CAD assembly. Flat base plate with the printed grips modelled on the rim. Base plate cutouts were designed based on the drivers' preferences.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="design-and-material-selection">Design and Material Selection</h2>
+        <p>Two choices were considered. Firstly, a machined aluminium plate with printed handles, which is simple to make and stiff but heavy. Secondly, a carbon fibre layup base plate with printed handles and foam padding, lighter and easier to shape around the driver's grip. Scored on a weighted matrix across reliability, efficiency, cost, weight and integration, the composite won 55 to 43.</p>
+        <p>Material selection was run as its own weighted comparison against density, cost, fatigue resistance, manufacturability and fracture toughness. 2&times;2 twill 3k carbon fibre scored 70 against 54 for 5251 aluminium H22. Aluminium won on cost and manufacturability, while carbon won on density, fatigue and fracture toughness.</p>
+        <p>The failure mode was determined in a design FMEA. Fracture of the base plate leading to loss of steering control: severity 10, occurrence 3, detection 1, giving an RPN of 30. This result was followed by analysis rather than redesign.</p>
+      </section>
+
+      <section class="split reverse media-wide">
+        <div class="split-text">
+          <h2 id="structural-analysis">Structural Analysis</h2>
+          <p>A static structural analysis was run in Ansys with the three mounting holes fixed and an 11.287 Nm moment applied at the rim, reproducing the load path from the driver's hands through the plate and into the quick release.</p>
+          <p>Peak von Mises stress was 7.32 MPa, concentrated around the cutout fillets and the lower mounting hole. Deflection was of the order of 10 &micro;m.</p>
+          <p>The model used an isotropic material rather than a laminate definition. Von Mises is not a valid failure criterion for a composite, and predicted deflection depends on modulus, so the deflection figure should be read as indicative only. It was judged sufficient here because the peak stress sits about two orders of magnitude below any possible laminate strength. The wheel is not strength-critical; its design is driven by ergonomics and packaging. The FEA located stress concentrations and confirmed the cutouts do not create a critical section.</p>
+        </div>
+        <div class="split-media">
+          <figure>
+            <img loading="lazy" decoding="async" width="1418" height="832" src="images/fea-vonmises.webp" alt="von Mises stress contour plot of the steering wheel base plate">
+            <figcaption>Equivalent von Mises stress, 7.32 MPa peak. Stress concentrates at the cutout fillets and around the lower mounting hole, while the outer rim and centre are almost unloaded.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="manufacturing">Manufacturing</h2>
+        <p>For IC26 the wheel was made by resin infusion rather than the wet layup used on IC24. Infusion gives a more consistent fibre-to-resin ratio and a better surface finish, and it removes most of the hand-rolling variability that made the earlier part inconsistent. The IC24 wheel used ten plies of 210 gsm laid wet, while the IC26 part uses three plies of 650 gsm at 0/90, &plusmn;45, 0/90.</p>
+        <p>The panel was laid up flat on a 600 &times; 600 &times; 1.5 mm aluminium sheet, sanded through P40 to P320 and sealed with four coats of chemical release agent before fabric was applied.</p>
+        <div class="figure-grid">
+          <figure>
+            <img loading="lazy" decoding="async" width="1200" height="1600" src="images/base-pattern.jpg" alt="3D-printed steering wheel base pattern on a printer bed">
+            <figcaption>The 3D-printed base pattern. The profile is copied from it onto the cured panel before cutting.</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" decoding="async" width="1200" height="1600" src="images/infusion-setup.jpg" alt="Vacuum bag, catch pot and pump set up for resin infusion">
+            <figcaption>The vacuum-bagged ply. Peel ply and flow mesh over the laminate, spiral inlet and outlet, catch pot between the bag and the pump.</figcaption>
+          </figure>
+        </div>
+        <p>The laminate stack contains peel ply, then knitted flow mesh to speed the in-plane resin flow, with a folded paper strip at the outlet to slow the flow there and stop resin reaching the catch pot before the panel is full. The bag is sealed and leak tested for 15 minutes before any resin is mixed. Resin is a slow-hardener epoxy system at 3:1, roughly 195 g of resin to 65 g of hardener, cured for 24 hours before demoulding with plastic wedges.</p>
+        <figure>
+          <video controls loop muted playsinline preload="metadata"
+                 poster="videos/resin-infusion-poster.jpg">
+            <source src="videos/resin-infusion.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+            <a href="videos/resin-infusion.mp4">Download the timelapse instead.</a>
+          </video>
+          <figcaption>Timelapse of the infusion setup. This is the department's standard process, repeated for every infused component on the car, and the same walkthrough used to train new composites members. The demonstrated part is a curved side panel.</figcaption>
+        </figure>
+        <p>The cured panel is then marked from the printed pattern and handsawn to rough shape. The final profile is cut with a Dremel and cutting disc, the grip openings are drilled and opened out, and every edge is deburred through P40, P240 and P320. Grips are printed in PETG, bonded to the rim and wrapped using double-sided tape (also known as layup sealant tape) to give the driver a soft cushion. Duct tape is applied over the sealant tape to keep the texture consistent and not sticky.</p>
+        <div class="figure-grid">
+          <figure>
+            <img loading="lazy" decoding="async" width="900" height="1600" src="images/cured-panel.jpg" alt="Cured flat carbon fibre panel after demoulding">
+            <figcaption>The demoulded panel. The profile is copied and the ragged edges are cut away.</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" decoding="async" width="721" height="1600" src="images/profile-cut.jpg" alt="Steering wheel profile cut from the carbon panel">
+            <figcaption>The profile cut and deburred. Mounting holes are drilled to the pattern rather than by eye.</figcaption>
+          </figure>
+        </div>
+        <p>I worked on the layup and infusion alongside the Deputy Head of Composites. As Head of Engineering, my composites experience was limited, and the process walkthrough above was written as a teaching document for new department members.</p>
+      </section>
+
+      <section>
+        <h2 id="limitations">Limitations</h2>
+        <ul>
+          <li><strong>No composite FEA:</strong> The analysis used an isotropic material model, so it locates stress concentrations but does not predict composite failure.</li>
+          <li><strong>Load case:</strong> The 11.287 Nm applied moment comes from a driver torque calculation and not from measurement.</li>
+          <li><strong>No physical test:</strong> The wheel was validated by analysis, prototype fit and driver feedback. A physical torque test was planned but not carried out.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="future-work">Future Work</h2>
+        <ul>
+          <li><strong>Laminate analysis:</strong> Model the laminate ply by ply with a composite failure criterion rather than von Mises, and use it to check whether the layup can be reduced below three plies.</li>
+          <li><strong>Steering torque:</strong> Measure the torque input from the driver, or physically test prototypes with the assumed load case.</li>
+          <li><strong>Adjustability:</strong> Depending on the vehicle and driver line-up, replaceable grips can be integrated to keep using the same base.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <!-- EDIT: footer text / contact email -->
+      <p>&copy; 2026 Dardi Peka &middot; dpeka.qmfs@gmail.com</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/dardi-peka-937169327" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../../../assets/Dardi_Peka_CV.pdf" download>CV</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
