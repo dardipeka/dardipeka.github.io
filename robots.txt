@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://dardipeka.github.io/sitemap.xml
