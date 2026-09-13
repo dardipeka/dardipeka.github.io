@@ -316,13 +316,15 @@ body {
 
 /* ---------------------------------------------------------- numbered sections */
 
+/* Figures count once per page, so a captioned hero image is FIG. 01 and the
+   body continues from it. Sections restart inside the body. */
 main {
   counter-reset: fig;
 }
 
 .project-body,
 main:has(> .home-section) {
-  counter-reset: sec fig;
+  counter-reset: sec;
 }
 
 .project-body h2,
