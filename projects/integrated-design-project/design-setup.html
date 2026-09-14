@@ -26,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/style.css">
   <link rel="stylesheet" href="../../assets/makeover.css">
+  <script src="../../assets/lightbox.js" defer></script>
 </head>
 <body>
 
@@ -69,9 +70,9 @@
           <h2 id="geometry-and-flow-conditions">Geometry and Flow Conditions</h2>
           <ul>
             <li>I built a simplified 2D section from the proportions of the XV-15 nacelle, 1.45 m wide and 3.93 m long. No parametric CAD model was available, so the geometry is a representative cross-section.</li>
-            <li>Sea-level air as a constant-density fluid. Both cases are low-Mach (M &lt; 0.3), so I used an incompressible formulation throughout.</li>
-            <li><strong>No-tilt baseline:</strong> 64 m/s (~124 kn), Re = 6.35&nbsp;&times;&nbsp;10<sup>6</sup>. A stationary low-cruise condition I used to qualify the unsteady setup.</li>
-            <li><strong>Tilting case:</strong> 37 m/s (~72 kn), Re = 3.67&nbsp;&times;&nbsp;10<sup>6</sup>, a representative velocity in the conversion regime, rotating through 45&deg; at 30&deg;/s.</li>
+            <li>Sea-level air as a constant-density fluid. Both cases are low-Mach (<var>M</var> &lt; 0.3), so I used an incompressible formulation throughout.</li>
+            <li><strong>No-tilt baseline:</strong> 64 m/s (~124 kn), <var>Re</var> = 6.35&nbsp;&times;&nbsp;10<sup>6</sup>. A stationary low-cruise condition I used to qualify the unsteady setup.</li>
+            <li><strong>Tilting case:</strong> 37 m/s (~72 kn), <var>Re</var> = 3.67&nbsp;&times;&nbsp;10<sup>6</sup>, a representative velocity in the conversion regime, rotating through 45&deg; at 30&deg;/s.</li>
           </ul>
         </div>
         <div class="split-media">
@@ -94,9 +95,9 @@
       <section>
         <h2 id="solver-selection">Solver Selection</h2>
         <ul>
-          <li><strong>URANS with the SST k-&omega; model:</strong> I chose SST to keep the near-wall behaviour of k-&omega; while avoiding the standard model's sensitivity to freestream turbulence specification in the far field.</li>
+          <li><strong>URANS with the SST <var>k</var>-<var>&omega;</var> model:</strong> I chose SST to keep the near-wall behaviour of <var>k</var>-<var>&omega;</var> while avoiding the standard model's sensitivity to freestream turbulence specification in the far field.</li>
           <li><strong>Segregated flow solver with PISO coupling:</strong> The coupled solver's compressible-flow capabilities were unnecessary, because the flow studied is incompressible. I chose PISO over SIMPLE and SIMPLEC because the study required a small timestep for wake resolution. At smaller timesteps, the PISO algorithm is faster while maintaining the same level of temporal accuracy.</li>
-          <li><strong>2nd-order temporal discretisation at &Delta;t = 1&nbsp;&times;&nbsp;10<sup>-5</sup> s:</strong> I tried an Implicit Unsteady model first to attempt simulations with CFL &gt; 1, but increasing the timestep degraded the transient response, and in tilting it resulted in residual divergence at around 12&deg;. The runtime saving did not justify the major loss of fidelity or the inability to finish runs.</li>
+          <li><strong>2nd-order temporal discretisation at &Delta;<var>t</var> = 1&nbsp;&times;&nbsp;10<sup>-5</sup> s:</strong> I tried an Implicit Unsteady model first to attempt simulations with CFL &gt; 1, but increasing the timestep degraded the transient response, and in tilting it resulted in residual divergence at around 12&deg;. The runtime saving did not justify the major loss of fidelity or the inability to finish runs.</li>
           <li>I checked the timestep against the CFL condition in both cases: 0.680 for the no-tilt case, and a deliberately smaller 0.336 for tilting, since CFL proved sensitive to the rotation.</li>
         </ul>
         <p>At 30&deg;/s the chosen timestep corresponds to 3&nbsp;&times;&nbsp;10<sup>-4</sup> degrees of rotation per step, or 150,000 steps across the full sweep. The timestep is set by solution stability and wake resolution rather than by the need to resolve the motion itself.</p>
@@ -118,12 +119,12 @@
 
       <section>
         <h2 id="near-wall-treatment">Near-Wall Treatment</h2>
-        <p>Near-wall treatment dictates the behaviour of flow separation, so I estimated the first-cell height for each case from a turbulent flat-plate approximation of wall shear stress at a chosen target y<sup>+</sup>, using a growth ratio of 1.2.</p>
+        <p>Near-wall treatment dictates the behaviour of flow separation, so I estimated the first-cell height for each case from a turbulent flat-plate approximation of wall shear stress at a chosen target <var>y<sup>+</sup></var>, using a growth ratio of 1.2.</p>
         <ul>
-          <li><strong>No-tilt case, wall-resolved:</strong> Targeting y<sup>+</sup> &asymp; 1, resulting in 34 prism layers. This mesh was computationally cheap while resolving the wall directly, making it a suitable reference for selecting the unsteady model.</li>
-          <li><strong>Tilting case, wall-modelled:</strong> Using the log law, targeting y<sup>+</sup> &asymp; 70 with 10 prism layers, a compromise to keep the overset runs affordable without significantly compromising the force coefficients.</li>
+          <li><strong>No-tilt case, wall-resolved:</strong> Targeting <var>y<sup>+</sup></var> &asymp; 1, resulting in 34 prism layers. This mesh was computationally cheap while resolving the wall directly, making it a suitable reference for selecting the unsteady model.</li>
+          <li><strong>Tilting case, wall-modelled:</strong> Using the log law, targeting <var>y<sup>+</sup></var> &asymp; 70 with 10 prism layers, a compromise to keep the overset runs affordable without significantly compromising the force coefficients.</li>
         </ul>
-        <p>The tilting runs did not maintain that target y<sup>+</sup>. The transient runs left most of the nacelle surface between y<sup>+</sup> &asymp; 5 and 40 depending on the mesh. I elaborate on that shortfall in <a href="results-validation.html">Validation &amp; Mesh Sensitivity</a>.</p>
+        <p>The tilting runs did not maintain that target <var>y<sup>+</sup></var>. The transient runs left most of the nacelle surface between <var>y<sup>+</sup></var> &asymp; 5 and 40 depending on the mesh. I elaborate on that shortfall in <a href="results-validation.html">Validation &amp; Mesh Sensitivity</a>.</p>
       </section>
     </div>
   </main>

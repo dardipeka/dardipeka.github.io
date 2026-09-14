@@ -26,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/style.css">
   <link rel="stylesheet" href="../../assets/makeover.css">
+  <script src="../../assets/lightbox.js" defer></script>
 </head>
 <body>
 
@@ -65,11 +66,11 @@
 
       <section>
         <h2 id="vortex-identification">Vortex Identification</h2>
-        <p>Vorticity contours alone are not enough to interpret a separated wake, because shear layers and coherent vortex cores overlap visually. I used two further criteria alongside vorticity magnitude, both derived from decomposing the velocity gradient into its strain and rotation parts: the Q-criterion, where Q &gt; 0 marks regions in which rotation dominates strain, and &lambda;<sub>2</sub>, where &lambda;<sub>2</sub> &lt; 0 indicates a vortex core.</p>
-        <p>Fixed thresholds of Q = 0.1 and &lambda;<sub>2</sub> = &minus;0.1 worked on the three coarser meshes but produced nothing legible on the two finest, which needed thresholds five orders of magnitude larger. The cause is physical as well as visual. Both scalars are built from the velocity gradient tensor, so finer cells resolve sharper local gradients and reduce numerical diffusion, and the magnitude distribution shifts with mesh density. The criteria are mesh-sensitive, so I analysed them qualitatively.</p>
+        <p>Vorticity contours alone are not enough to interpret a separated wake, because shear layers and coherent vortex cores overlap visually. I used two further criteria alongside vorticity magnitude, both derived from decomposing the velocity gradient into its strain and rotation parts: the <var>Q</var>-criterion, where <var>Q</var> &gt; 0 marks regions in which rotation dominates strain, and <var>&lambda;<sub>2</sub></var>, where <var>&lambda;<sub>2</sub></var> &lt; 0 indicates a vortex core.</p>
+        <p>Fixed thresholds of <var>Q</var> = 0.1 and <var>&lambda;<sub>2</sub></var> = &minus;0.1 worked on the three coarser meshes but produced nothing legible on the two finest, which needed thresholds five orders of magnitude larger. The cause is physical as well as visual. Both scalars are built from the velocity gradient tensor, so finer cells resolve sharper local gradients and reduce numerical diffusion, and the magnitude distribution shifts with mesh density. The criteria are mesh-sensitive, so I analysed them qualitatively.</p>
         <figure>
           <img loading="lazy" decoding="async" width="1352" height="1022" src="images/vortex-criteria.png" alt="Lambda2 and Q-criterion fields around the tilted nacelle">
-          <figcaption>&lambda;<sub>2</sub> and Q-criterion on the medium mesh, at matched thresholds. Both identify the same structures: discrete cores shed from the nacelle and convecting downstream, rather than a continuous sheet.</figcaption>
+          <figcaption><var>&lambda;<sub>2</sub></var> and <var>Q</var>-criterion on the medium mesh, at matched thresholds. Both identify the same structures: discrete cores shed from the nacelle and convecting downstream, rather than a continuous sheet.</figcaption>
         </figure>
       </section>
 
@@ -78,7 +79,7 @@
           <h2 id="the-developing-wake">The Developing Wake</h2>
           <ul>
             <li>Early in the motion the wake is relatively compact and the strongest disturbances sit close to the nacelle.</li>
-            <li>As tilt increases, the low-momentum region downstream widens and extends, becoming most evident around 30&deg;. This matches the strong rise in C<sub>D</sub> and the point at which the meshes begin to diverge.</li>
+            <li>As tilt increases, the low-momentum region downstream widens and extends, becoming most evident around 30&deg;. This matches the strong rise in <var>C<sub>D</sub></var> and the point at which the meshes begin to diverge.</li>
             <li>The widened wake is not uniform. It contains concentrated vortex structures embedded in the larger disturbed region.</li>
             <li>The wake stays visible downstream, but the highest-intensity cores decay quickly once shed from the near-body region.</li>
           </ul>
@@ -96,14 +97,14 @@
         <h2 id="frequency-domain-analysis">Frequency-Domain Analysis</h2>
         <p>I transformed the force-coefficient reports with an FFT over two separate frequency bands, using a 0.5 s moving window. The overlap improves the continuity of the extracted signal but not its resolution, so these are not settled modal values. The flow is transient throughout and there is no stationary shedding mode.</p>
         <ul>
-          <li>The low-band C<sub>L</sub> response is the most physically robust, at St = 0.129&ndash;0.183. That range sits inside or close to values reported for sharp-edged bluff bodies (rectangles, squares and inclined flat plates) when an appropriate characteristic length is used.</li>
-          <li>The low-band C<sub>D</sub> response is narrower and lower, at St = 0.103&ndash;0.114.</li>
-          <li>The higher-frequency bands (St = 0.490&ndash;0.544 for C<sub>L</sub>) are too broad to be the primary bluff-body shedding mode, and I treat them as secondary wake features.</li>
+          <li>The low-band <var>C<sub>L</sub></var> response is the most physically robust, at <var>St</var> = 0.129&ndash;0.183. That range sits inside or close to values reported for sharp-edged bluff bodies (rectangles, squares and inclined flat plates) when an appropriate characteristic length is used.</li>
+          <li>The low-band <var>C<sub>D</sub></var> response is narrower and lower, at <var>St</var> = 0.103&ndash;0.114.</li>
+          <li>The higher-frequency bands (<var>St</var> = 0.490&ndash;0.544 for <var>C<sub>L</sub></var>) are too broad to be the primary bluff-body shedding mode, and I treat them as secondary wake features.</li>
         </ul>
         <p>This matches the bluff-body literature. Rectangular-cylinder wakes are known to switch between narrower and wider states, with the wider state reducing Strouhal number and producing multi-peak spectra during transition. I read the spectra as evidence of wake-structure reorganisation during tilting, and not as a single mesh-independent Strouhal number for the nacelle.</p>
         <figure>
           <img loading="lazy" decoding="async" width="1378" height="855" src="images/frequency-cl.webp" alt="Low- and high-band frequency and Strouhal number against tilt angle, from lift coefficient">
-          <figcaption>Low- and high-band dominant frequency and Strouhal number from C<sub>L</sub>, plotted against tilt angle for all five meshes. The moving window means the analysis does not extend to the very start or end of the sweep.</figcaption>
+          <figcaption>Low- and high-band dominant frequency and Strouhal number from <var>C<sub>L</sub></var>, plotted against tilt angle for all five meshes. The moving window means the analysis does not extend to the very start or end of the sweep.</figcaption>
         </figure>
       </section>
 
