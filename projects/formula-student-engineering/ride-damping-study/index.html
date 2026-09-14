@@ -96,7 +96,7 @@
         <h2 id="derivation-and-validation">Derivation and Validation</h2>
         <p>The equations of motion and both natural frequencies were derived on paper before the model was built. The validation chain is as follows:</p>
         <ul>
-          <li><strong>Verified the natural frequencies by three independent routes:</strong> The roots of the characteristic quartic, the eigenvalues of the state matrix, and the standard separated approximations. The first two agree to around 1&times;10<sup>-14</sup>%. The approximations differ by 0.6% front and 1.3% rear. This is expected as the rear wheel rate is nearly twice the front.</li>
+          <li><strong>Verified the natural frequencies by three independent routes:</strong> The roots of the characteristic quartic, the eigenvalues of the state matrix, and the standard separated approximations. The first two agree to around 1&times;10<sup>&minus;14</sup>%. The approximations differ by 0.6% front and 1.3% rear. This is expected as the rear wheel rate is nearly twice the front.</li>
           <li><strong>The Simulink model falls back onto the hand-checked linear one:</strong> With the nonlinearities switched off, they agree within 0.002%.</li>
           <li><strong>Bounded the result with the rigid-tyre model frequency, 3.695 / 4.232 Hz:</strong> The limit the body mode approaches if the tyre is treated as infinitely stiff. It is constructed from the wheel rate and sprung mass alone.</li>
           <li><strong>Nonlinearity changed the result:</strong> Once activated, the nonlinearities shift the optimum damping ratio downwards. The linear model is therefore not reliable for kerb inputs.</li>

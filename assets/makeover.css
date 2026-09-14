@@ -643,6 +643,21 @@ var {
   font-style: italic;
 }
 
+/* a sloped letter leans into the next upright character, e.g. the dash in
+   θ–β–Mach, so give it a hair of room on the right */
+var:not(:has(sub, sup)) {
+  margin-right: 0.08em;
+}
+
+/* subscripts and superscripts on a symbol are labels, indices or signs
+   (C<sub>L</sub>, β<sub>12</sub>, M<sub>∞</sub>, y<sup>+</sup>): upright, and
+   nudged clear of the sloped letter they hang from */
+var sub,
+var sup {
+  font-style: normal;
+  margin-left: 0.06em;
+}
+
 /* ---------------------------------------------------------- phone fit */
 
 html {

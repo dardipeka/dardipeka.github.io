@@ -97,10 +97,10 @@
         <ul>
           <li><strong>URANS with the SST <var>k</var>-<var>&omega;</var> model:</strong> I chose SST to keep the near-wall behaviour of <var>k</var>-<var>&omega;</var> while avoiding the standard model's sensitivity to freestream turbulence specification in the far field.</li>
           <li><strong>Segregated flow solver with PISO coupling:</strong> The coupled solver's compressible-flow capabilities were unnecessary, because the flow studied is incompressible. I chose PISO over SIMPLE and SIMPLEC because the study required a small timestep for wake resolution. At smaller timesteps, the PISO algorithm is faster while maintaining the same level of temporal accuracy.</li>
-          <li><strong>2nd-order temporal discretisation at &Delta;<var>t</var> = 1&nbsp;&times;&nbsp;10<sup>-5</sup> s:</strong> I tried an Implicit Unsteady model first to attempt simulations with CFL &gt; 1, but increasing the timestep degraded the transient response, and in tilting it resulted in residual divergence at around 12&deg;. The runtime saving did not justify the major loss of fidelity or the inability to finish runs.</li>
+          <li><strong>2nd-order temporal discretisation at &Delta;<var>t</var> = 1&nbsp;&times;&nbsp;10<sup>&minus;5</sup> s:</strong> I tried an Implicit Unsteady model first to attempt simulations with CFL &gt; 1, but increasing the timestep degraded the transient response, and in tilting it resulted in residual divergence at around 12&deg;. The runtime saving did not justify the major loss of fidelity or the inability to finish runs.</li>
           <li>I checked the timestep against the CFL condition in both cases: 0.680 for the no-tilt case, and a deliberately smaller 0.336 for tilting, since CFL proved sensitive to the rotation.</li>
         </ul>
-        <p>At 30&deg;/s the chosen timestep corresponds to 3&nbsp;&times;&nbsp;10<sup>-4</sup> degrees of rotation per step, or 150,000 steps across the full sweep. The timestep is set by solution stability and wake resolution rather than by the need to resolve the motion itself.</p>
+        <p>At 30&deg;/s the chosen timestep corresponds to 3&nbsp;&times;&nbsp;10<sup>&minus;4</sup> degrees of rotation per step, or 150,000 steps across the full sweep. The timestep is set by solution stability and wake resolution rather than by the need to resolve the motion itself.</p>
       </section>
 
       <section>
