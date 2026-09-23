@@ -68,9 +68,9 @@
         <h2 id="the-no-tilt-baseline">The No-Tilt Baseline</h2>
         <p>Before introducing rotation I ran a stationary case, to verify the unsteady formulation, the timestep treatment and mesh sensitivity without the additional complexity of overset motion. I carried out a grid convergence study on a triplet of meshes at a refinement ratio of 1.5, following Celik et al. and other literature.</p>
         <ul>
-          <li><strong>Apparent order <var>p</var> = 2.422:</strong> This is close to the 2nd-order convective and temporal discretisation I used.</li>
+          <li><strong>Apparent order <var>p</var>&nbsp;=&nbsp;2.422:</strong> This is close to the 2nd-order convective and temporal discretisation I used.</li>
           <li><strong>Fine-to-medium error band (GCI) of 1.894%:</strong> The coarse-to-medium band is much larger at 18.5%, as expected from the spread in mesh quality.</li>
-          <li><strong><var>St</var> = 0.260&ndash;0.298:</strong> Across the triplet, a reasonable Strouhal number range for a high-<var>Re</var> bluff body with features of rectangular and elliptical cylinders.</li>
+          <li><strong><var>St</var>&nbsp;=&nbsp;0.260&ndash;0.298:</strong> Across the triplet, a reasonable Strouhal number range for a high-<var>Re</var> bluff body with features of rectangular and elliptical cylinders.</li>
           <li>I could not confidently establish the asymptotic range, because the quality difference between meshes in the triplet was too large. The study supports the methodology, but it does not demonstrate full mesh independence.</li>
         </ul>
         <figure>
@@ -98,14 +98,14 @@
           <p>On the evidence available I take Mesh 4 rather than Mesh 5 as the most credible run, judged on force-coefficient stability, CFL history and wall <var>y<sup>+</sup></var> consistency rather than on cell count.</p>
           <ul>
             <li><strong>CFL:</strong> Mesh 4 stays the smoothest and lowest through most of the sweep at 0.25&ndash;0.35. Mesh 3 peaks at 0.88, Mesh 1 spikes above 1.0, and Mesh 5 climbs to about 0.82 late in the rotation.</li>
-            <li><strong>Wall <var>y<sup>+</sup></var>:</strong> Meshes 1&ndash;3 put much of the nacelle surface in the buffer layer (<var>y<sup>+</sup></var> &asymp; 5&ndash;30), which is the region wall functions handle worst. Meshes 4 and 5 sit mostly in the low inertial sublayer at <var>y<sup>+</sup></var> &asymp; 30&ndash;40.</li>
-            <li>I did not maintain the <var>y<sup>+</sup></var> &asymp; 70 target anywhere, a consequence of the transient case departing from the flat-plate assumption used to build the first-layer estimate.</li>
+            <li><strong>Wall <var>y<sup>+</sup></var>:</strong> Meshes 1&ndash;3 put much of the nacelle surface in the buffer layer (<var>y<sup>+</sup></var>&nbsp;&asymp;&nbsp;5&ndash;30), which is the region wall functions handle worst. Meshes 4 and 5 sit mostly in the low inertial sublayer at <var>y<sup>+</sup></var>&nbsp;&asymp;&nbsp;30&ndash;40.</li>
+            <li>I did not maintain the <var>y<sup>+</sup></var>&nbsp;&asymp;&nbsp;70 target anywhere, a consequence of the transient case departing from the flat-plate assumption used to build the first-layer estimate.</li>
           </ul>
         </div>
         <div class="split-media">
           <figure>
             <img loading="lazy" decoding="async" width="1324" height="901" src="images/wall-yplus.webp" alt="Wall y+ distribution by surface area across the five meshes">
-            <figcaption>Wall <var>y<sup>+</sup></var> distribution by nacelle surface area for each mesh, with the <var>y<sup>+</sup></var> = 70 target marked.</figcaption>
+            <figcaption>Wall <var>y<sup>+</sup></var> distribution by nacelle surface area for each mesh, with the <var>y<sup>+</sup></var>&nbsp;=&nbsp;70 target marked.</figcaption>
           </figure>
         </div>
       </section>

@@ -622,13 +622,11 @@ img.card-image {
 
 /* ---------------------------------------------------------- justified prose */
 
-/* Running text only. Headings, captions, tables, metrics and links stay
-   left-aligned. Hyphenation keeps word gaps even in narrow columns. */
-.page-header p,
-.project-header .tagline,
-.project-body p:not(.iteration-metrics):not(.model-link),
-.project-body li,
-.card-body p {
+/* Running text only. Headings, taglines, card blurbs, captions, tables,
+   metrics and links stay left-aligned: their short lines open wide gaps.
+   Hyphenation keeps word gaps even in narrow columns. */
+.project-body p:not(.iteration-metrics):not(.model-link):not(.card-body p),
+.project-body li {
   text-align: justify;
   -webkit-hyphens: auto;
   hyphens: auto;
@@ -656,6 +654,13 @@ var sub,
 var sup {
   font-style: normal;
   margin-left: 0.06em;
+}
+
+/* a subscript or superscript must not push its line further from the lines
+   around it */
+sub,
+sup {
+  line-height: 0;
 }
 
 /* ---------------------------------------------------------- phone fit */
@@ -693,11 +698,8 @@ html {
 
 @media (max-width: 600px) {
   /* justified text in a phone-width column opens wide gaps between words */
-  .page-header p,
-  .project-header .tagline,
-  .project-body p:not(.iteration-metrics):not(.model-link),
-  .project-body li,
-  .card-body p {
+  .project-body p:not(.iteration-metrics):not(.model-link):not(.card-body p),
+  .project-body li {
     text-align: left;
     -webkit-hyphens: manual;
     hyphens: manual;
@@ -763,6 +765,11 @@ main figure img[role="button"] {
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* with no caption to balance it, the image carries both auto margins */
+.lightbox-img:has(+ .lightbox-caption[hidden]) {
+  margin-bottom: auto;
+}
+
 .lightbox-label {
   margin-right: 10px;
   font-family: var(--mono);
@@ -790,6 +797,22 @@ main figure img[role="button"] {
 .lightbox-close:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+/* ---------------------------------------------------------- tap targets */
+
+/* The bar, footer and back links are set small. An invisible pad around each
+   makes them easier to hit with a thumb without moving anything. */
+.footer a {
+  position: relative;
+}
+
+.nav-links a::before,
+.footer a::before,
+.back-link::before {
+  content: "";
+  position: absolute;
+  inset: -12px -8px;
 }
 
 /* ---------------------------------------------------------- reduced motion */
