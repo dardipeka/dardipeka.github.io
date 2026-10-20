@@ -94,7 +94,7 @@
         <p>The department target was a downforce-to-drag ratio of at least 4:1, alongside a manufacturability constraint. The team's experience with aero-related manufacturing was very limited; therefore, geometry that was difficult to lay up was unusable for the composites department.</p>
         <p>Each iteration removed a geometric feature and produced more downforce than the previous one. The positive-camber main section, the sweep, the taper and the vortex generators were each removed in turn. Losses were recovered by reconfiguring element angles, overlaps and slot gaps.</p>
 
-        <p class="note">Every iteration below was simulated at the department standard of 15 m/s. The initial concept was run in SolidWorks Flow rather than STAR-CCM+, so its numbers are indicative only.</p>
+        <p class="note">Every iteration below was simulated at the department standard of 15 m/s. The initial concept was run in SolidWorks Flow rather than STAR-CCM+, so its numbers are indicative only. The full setup is listed under <a href="#simulation-approach">Simulation Approach</a>.</p>
 
         <!-- EDIT: one <article class="iteration"> per design iteration. Image left,
              numbers and reasoning right. Add class="final" to mark the built design. -->
@@ -182,7 +182,7 @@
           <h2 id="simulation-approach">Simulation Approach</h2>
           <ul>
             <li>Initial use of JavaFoil for element gaps and overlaps. Geometry replicated in SolidWorks, then the wing was solved in STAR-CCM+ at 15 m/s flow velocity.</li>
-            <li>From iteration 2 onwards, the wing was simulated with the full vehicle. This was done to analyse the wing wake and the aerodynamic behaviour of the rest of the car. Whole-car figures sat around 225&ndash;232 N of downforce against 174&ndash;175 N of drag.</li>
+            <li>Every run simulated the wing on the full vehicle. The initial concept was solved in SolidWorks Flow and is not comparable with the STAR-CCM+ iterations that followed. The full vehicle was used to analyse the wing wake and the aerodynamic behaviour of the rest of the car. Whole-car figures sat around 225&ndash;232 N of downforce against 174&ndash;175 N of drag.</li>
             <li>Making the geometry meshable was the first design constraint. Custom surface meshes were applied to flow-sensitive components (e.g., front wing), while a global mesh setting was set up for the bluff body of the car and the domain.</li>
             <li>Runs were carried to residual convergence rather than a fixed iteration count.</li>
           </ul>
@@ -192,6 +192,32 @@
             <img loading="lazy" decoding="async" width="1882" height="830" src="images/cfd-fullcar.webp" alt="Full-vehicle CFD scene showing the wing in the context of the car">
             <figcaption>Later runs solved the wing on the full car, to demonstrate its effect on the flow over the rear wing and inspect the stagnation at the tyre.</figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section>
+        <div class="table-wrap">
+          <table>
+            <caption>CFD setup used for the STAR-CCM+ iterations on this page.</caption>
+            <thead>
+              <tr><th scope="col">Parameter</th><th scope="col">Setting</th></tr>
+            </thead>
+            <tbody>
+                <tr><th scope="row">Solver</th><td>Simcenter STAR-CCM+, steady RANS</td></tr>
+                <tr><th scope="row">Turbulence model</th><td><var>k</var>&ndash;<var>&omega;</var> SST, every run</td></tr>
+                <tr><th scope="row">Freestream velocity</th><td>15&nbsp;m/s (department standard)</td></tr>
+                <tr><th scope="row">Model</th><td>Full car, halved on a symmetry plane; forces doubled to full-wing values</td></tr>
+                <tr><th scope="row">Domain</th><td>5 car lengths upstream, 10 downstream, 2 to the side</td></tr>
+                <tr><th scope="row">Ride height</th><td>45&nbsp;mm to the bottom of the endplate (rule minimum 30&nbsp;mm, plus manufacturing margin)</td></tr>
+                <tr><th scope="row">Ground</th><td>Stationary wall</td></tr>
+                <tr><th scope="row">Wheels</th><td>Rotating wall boundary on the tyres, 59&nbsp;rad/s (15&nbsp;m/s road speed on a 20-inch tyre)</td></tr>
+                <tr><th scope="row">Mesh</th><td>Trimmed cells, 12 prism layers, 34&ndash;37 million cells per run</td></tr>
+                <tr><th scope="row">Refinement</th><td>Surface refinement on the wing, volumetric refinement around the wheels, global settings elsewhere</td></tr>
+                <tr><th scope="row">Wall <var>y</var><sup>+</sup></th><td>Not targeted (see Limitations)</td></tr>
+                <tr><th scope="row">Convergence</th><td>Residuals, plus force monitors levelling off</td></tr>
+                <tr><th scope="row">Mesh sensitivity</th><td>Not run (see Limitations)</td></tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -227,6 +253,9 @@
         <ul>
           <li>The team has no wind tunnel able to match the Reynolds numbers of the CFD, and a 3D-printed scale model would only support smoke or tuft flow visualisation. Track testing the manufactured wing was considered the most practical and cost-effective validation method.</li>
           <li>One early iteration used a self-modified E423 section rather than the actual profile, which may have affected that run's numbers. A standard E423, configured in JavaFoil, was used for every other iteration.</li>
+          <li>No mesh sensitivity study was run. Results are compared between iterations on similar meshes rather than read as absolute values.</li>
+          <li>Wall <var>y</var><sup>+</sup> was not targeted or checked on the front wing or the wheels. It should be set separately for the aerodynamic package and the rest of the car, so computing power goes where the flow needs it.</li>
+          <li>The ground was a stationary wall while the wheels rotated, so the domain was not a true rolling road. A boundary layer grows on the ground under the car, which matters for a wing running 45&nbsp;mm above it. A ground moving at 15&nbsp;m/s would match the wheels.</li>
           <li>The final design is not the lightest one. Downforce-to-mass was traded for geometry the team could reliably manufacture in its first year of building a wing.</li>
         </ul>
       </section>
